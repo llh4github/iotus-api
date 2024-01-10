@@ -1,8 +1,8 @@
-package io.github.llh4github.smmtemplate.api.api
+package io.github.llh4github.iotus.api.api
 
-import io.github.llh4github.smmtmplate.commons.ErrorConvention
-import io.github.llh4github.smmtmplate.commons.JsonWrapper
-import io.github.llh4github.smmtmplate.commons.NoErrorEnums
+import io.github.llh4github.iotus.commons.ErrorConvention
+import io.github.llh4github.iotus.commons.JsonWrapper
+import io.github.llh4github.iotus.commons.NoErrorEnums
 
 /**
  * 接口类的基类，包含一些通用方法

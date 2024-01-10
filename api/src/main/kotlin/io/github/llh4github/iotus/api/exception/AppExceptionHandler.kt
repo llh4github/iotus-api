@@ -1,7 +1,7 @@
-package io.github.llh4github.smmtemplate.api.exception
+package io.github.llh4github.iotus.api.exception
 
-import io.github.llh4github.smmtmplate.commons.AppException
-import io.github.llh4github.smmtmplate.commons.JsonWrapper
+import io.github.llh4github.iotus.commons.AppException
+import io.github.llh4github.iotus.commons.JsonWrapper
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice

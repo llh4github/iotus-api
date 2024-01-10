@@ -4,5 +4,5 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
 }
 
-rootProject.name = "spring-multi-module-template"
+rootProject.name = "iotus"
 include("api", "commons")
