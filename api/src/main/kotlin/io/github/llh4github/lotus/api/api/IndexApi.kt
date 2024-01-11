@@ -1,6 +1,6 @@
-package io.github.llh4github.iotus.api.api
+package io.github.llh4github.lotus.api.api
 
-import io.github.llh4github.iotus.commons.JsonWrapper
+import io.github.llh4github.lotus.commons.JsonWrapper
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag

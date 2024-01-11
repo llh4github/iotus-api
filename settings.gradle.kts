@@ -4,5 +4,5 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
 }
 
-rootProject.name = "iotus"
+rootProject.name = "lotus-api"
 include("api", "commons")

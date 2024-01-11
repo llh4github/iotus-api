@@ -1,4 +1,4 @@
-package io.github.llh4github.iotus.api
+package io.github.llh4github.lotus.api
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

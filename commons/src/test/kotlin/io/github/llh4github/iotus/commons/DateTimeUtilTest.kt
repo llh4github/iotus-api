@@ -1,4 +1,4 @@
-package io.github.llh4github.iotus.commons
+package io.github.llh4github.lotus.commons
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
