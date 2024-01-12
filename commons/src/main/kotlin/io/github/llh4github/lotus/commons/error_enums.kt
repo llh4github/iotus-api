@@ -6,6 +6,7 @@ enum class AppErrorEnums(
 ) : ErrorConvention {
     Error("UNKNOWN", "未知错误"),
     AUTH_ERROR("401001", "未登录"),
+    AUTH_FAILED("401002", "认证失败"),
     NO_PERMISSION_ERROR("401002", "无权限"),
     DATA_NO_FOUND("501001", "数据不存在"),
     DATA_EXISTED_FOUND("501002", "数据已存在"),

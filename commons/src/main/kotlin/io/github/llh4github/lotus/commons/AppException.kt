@@ -18,6 +18,7 @@ class AppException(
         msg ?: error.msg,
         cause
     )
+
     fun errorMsg(): ErrorMsg {
         return ErrorMsg(cod, msg)
     }

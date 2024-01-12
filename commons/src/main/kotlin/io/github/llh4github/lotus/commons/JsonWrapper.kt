@@ -21,6 +21,11 @@ data class JsonWrapper<T>(
         fun <T> response(error: ErrorConvention, data: T? = null): JsonWrapper<T> {
             return JsonWrapper(error.code, error.msg, data)
         }
+
+        @JvmStatic
+        fun ok(msg: String): JsonWrapper<Nothing> {
+            return JsonWrapper(NoErrorEnums.OK.code, msg, null)
+        }
     }
 
 }
