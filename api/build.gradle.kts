@@ -6,13 +6,13 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-graalvmNative {
-    binaries {
-        named("main") {
-            imageName.set(rootProject.name + "-" + project.version)
-        }
-    }
-}
+//graalvmNative {
+//    binaries {
+//        named("main") {
+//            imageName.set(rootProject.name + "-" + project.version)
+//        }
+//    }
+//}
 tasks.withType<Jar> {
     archivesName = rootProject.name
 }
@@ -30,12 +30,13 @@ dependencies {
 
     implementation(libs.knife4j.openapi3)
     implementation(project(":commons"))
+    implementation(project(":model"))
     runtimeOnly("com.mysql:mysql-connector-j")
     implementation("org.babyfish.jimmer:jimmer-spring-boot-starter:${jimmerVersion}")
     ksp("org.babyfish.jimmer:jimmer-ksp:${jimmerVersion}")
     implementation(libs.jjwt.api)
-    implementation(libs.jjwt.impl)
-    implementation(libs.jjwt.jackson)
+    runtimeOnly(libs.jjwt.impl)
+    runtimeOnly(libs.jjwt.jackson)
 
     implementation("com.github.yitter:yitter-idgenerator:1.0.6")
 }

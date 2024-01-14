@@ -14,10 +14,6 @@ import org.babyfish.jimmer.sql.*
 @Entity
 @Table(name = "auth_url_resource")
 interface UrlResource : BaseModel {
-    @Id
-    @GeneratedValue(generatorRef = "idUtil")
-    @Column(name = "id")
-    val urlResourceId: Long
 
     @Key
     val path: String

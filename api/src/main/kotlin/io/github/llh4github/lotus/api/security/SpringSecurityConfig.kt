@@ -20,7 +20,8 @@ import org.springframework.security.web.SecurityFilterChain
 @EnableWebSecurity
 @Configuration
 class SpringSecurityConfig(
-    val providers: List<AuthenticationProvider>
+    val providers: List<AuthenticationProvider>,
+
 ) {
 
     @Bean

@@ -13,11 +13,11 @@ import org.springframework.security.core.GrantedAuthority
  */
 data class UsernameAuthToken(
     /** eq username */
-    val principal: Any,
+    private val principal: Any,
     /** eq password*/
-    val credentials: Any?,
+    private val credentials: Any?,
     /** eq permission list */
-    val authorities: Collection<GrantedAuthority>? = null,
+    private val authorities: Collection<GrantedAuthority>? = null,
 ) : AbstractAuthenticationToken(authorities) {
 
     constructor(principal: Any, credentials: Any) : this(principal, credentials, null) {

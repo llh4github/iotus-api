@@ -2,7 +2,8 @@ package io.github.llh4github.lotus.api.utils
 
 import com.github.yitter.contract.IdGeneratorOptions
 import com.github.yitter.idgen.YitIdHelper
-import io.github.llh4github.lotus.api.config.IdUtilProperties
+import io.github.llh4github.lotus.api.config.properties.IdUtilProperties
+import org.babyfish.jimmer.sql.meta.UserIdGenerator
 import org.springframework.stereotype.Component
 
 /**
@@ -12,7 +13,10 @@ import org.springframework.stereotype.Component
  * @author llh
  */
 @Component
-class IdUtil(properties: IdUtilProperties) {
+class IdUtil(properties: IdUtilProperties) : UserIdGenerator<Long> {
+    override fun generate(entityType: Class<*>?): Long {
+        return nextId()
+    }
 
     init {
         val option = IdGeneratorOptions()

@@ -1,4 +1,4 @@
-package io.github.llh4github.lotus.api.config
+package io.github.llh4github.lotus.api.config.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration

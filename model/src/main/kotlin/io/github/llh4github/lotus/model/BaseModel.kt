@@ -9,6 +9,12 @@ import java.time.LocalDateTime
  */
 @MappedSuperclass
 interface BaseModel {
+
+    @Id
+    @GeneratedValue(generatorRef = "idUtil")
+    @Column(name = "id")
+    val id: Long
+
     @get:Schema(title = "创建时间")
     @get:JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     val createdTime: LocalDateTime?

@@ -12,10 +12,6 @@ import org.babyfish.jimmer.sql.*
 @Entity
 @Table(name = "auth_user")
 interface Role : BaseModel {
-    @Id
-    @GeneratedValue(generatorRef = "idUtil")
-    @Column(name = "id")
-    val roleId: Long
 
     val title: String
 

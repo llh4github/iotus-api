@@ -5,7 +5,7 @@
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm")
-    id("org.graalvm.buildtools.native")
+//    id("org.graalvm.buildtools.native")
 }
 val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 repositories {
@@ -15,13 +15,13 @@ repositories {
 group = project.group.toString()
 version = project.version.toString()
 
-graalvmNative {
-    binaries {
-        named("main") {
-            imageName.set(project.name + "-" + project.version)
-        }
-    }
-}
+//graalvmNative {
+//    binaries {
+//        named("main") {
+//            imageName.set(project.name + "-" + project.version)
+//        }
+//    }
+//}
 
 dependencies {
     constraints {

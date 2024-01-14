@@ -7,10 +7,6 @@ import org.babyfish.jimmer.sql.*
 @Entity
 @Table(name = "auth_user")
 interface User : BaseModel {
-    @Id
-    @GeneratedValue(generatorRef = "idUtil")
-    @Column(name = "id")
-    val userId: Long
 
     @Key
     val username: String
