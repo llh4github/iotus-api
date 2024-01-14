@@ -1,0 +1,5 @@
+export io.github.llh4github.lotus.model.auth.User
+
+input UserInput{
+   #allScalars(this)
+}
