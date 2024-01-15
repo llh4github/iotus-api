@@ -50,15 +50,17 @@ class TokenService(
     }
 
     private fun createRefreshToken(map: Map<String, Any>): String {
+        val expire = System.currentTimeMillis() + tokenProperties.refreshExpireTimeMs
         val builder = tokenBuilder(map)
-            .expiration(Date(tokenProperties.refreshExpireTimeMs))
+            .expiration(Date(expire))
         builder.header().add("typ", "refresh")
         return builder.compact()
     }
 
     private fun createToken(map: Map<String, Any>): String {
+        val expire = System.currentTimeMillis() + tokenProperties.expireTimeMs
         val builder = tokenBuilder(map)
-            .expiration(Date(tokenProperties.expireTimeMs))
+            .expiration(Date(expire))
         builder.header().add("typ", "access")
         return builder.compact()
     }
