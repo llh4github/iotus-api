@@ -14,6 +14,9 @@ enum class HttpMethodEnums {
     @EnumItem(ordinal = 0)
     ALL,
 
+    @EnumItem(ordinal = 120)
+    NONE,
+
     @EnumItem(ordinal = 1)
     GET,
 
@@ -23,4 +26,18 @@ enum class HttpMethodEnums {
     @EnumItem(ordinal = 3)
     DELETE,
 
+    @EnumItem(ordinal = 4)
+    PUT,
+    ;
+
+
+}
+
+fun convertMethodEnums(method: String): HttpMethodEnums {
+    for (it in HttpMethodEnums.entries) {
+        if (it.name == method.uppercase()) {
+            return it
+        }
+    }
+    return HttpMethodEnums.NONE
 }

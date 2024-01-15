@@ -16,5 +16,9 @@ kotlin {
         kotlin.srcDir("build/generated/ksp/main/kotlin")
     }
 }
-
+normalization{
+    runtimeClasspath{
+        ignore("**/*.dto")
+    }
+}
 

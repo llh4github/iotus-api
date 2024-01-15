@@ -1,5 +1,6 @@
 package io.github.llh4github.lotus.api.security
 
+import io.github.llh4github.lotus.api.dto.UserAuthDetails
 import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.core.GrantedAuthority
 
@@ -11,8 +12,8 @@ import org.springframework.security.core.GrantedAuthority
  * Created At 2024/1/11 16:53
  * @author llh
  */
-data class UsernameAuthToken(
-    /** eq username */
+data class UserAuthToken(
+    /** 存的是[UserAuthDetails] */
     private val principal: Any,
     /** eq password*/
     private val credentials: Any?,
@@ -36,6 +37,6 @@ data class UsernameAuthToken(
         return principal
     }
 
-    val username: String by lazy { principal as String }
-    val password: String by lazy { if (credentials == null) "" else credentials as String }
+    val username: String by lazy { (principal as UserAuthDetails).username }
+    val userId: Long by lazy { (principal as UserAuthDetails).userId }
 }

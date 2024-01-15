@@ -21,11 +21,11 @@ class UsernameAuthenticationProvider(
             logger.error { "不支持的token类型: ${authentication::class.java} $authentication " }
             return null
         }
-        val token = authentication as UsernameAuthToken
+        val token = authentication as UserAuthToken
         return token
     }
 
     override fun supports(authentication: Class<*>): Boolean {
-        return UsernameAuthToken::class.java.isAssignableFrom(authentication)
+        return UserAuthToken::class.java.isAssignableFrom(authentication)
     }
 }

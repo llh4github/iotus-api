@@ -2,8 +2,8 @@ package io.github.llh4github.lotus.api.config
 
 import BaseModel
 import BaseModelDraft
+import io.github.llh4github.lotus.api.utils.SecurityUtil
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.babyfish.jimmer.kt.get
 import org.babyfish.jimmer.kt.isLoaded
 import org.babyfish.jimmer.sql.DraftInterceptor
 import org.springframework.stereotype.Component
@@ -19,7 +19,7 @@ import java.time.LocalDateTime
 class BaseModelDraftInterceptor : DraftInterceptor<BaseModel, BaseModelDraft> {
     private val logger = KotlinLogging.logger {}
     private fun currentUserId(): Long {
-        return 1
+        return SecurityUtil.currentUserId()
     }
 
     override fun beforeSave(draft: BaseModelDraft, original: BaseModel?) {
@@ -28,9 +28,11 @@ class BaseModelDraftInterceptor : DraftInterceptor<BaseModel, BaseModelDraft> {
             draft.updatedTime = now
         }
 
+        if (!isLoaded(draft, BaseModel::updatedByUser)) {
+            draft.updatedBy = currentUserId()
+        }
 
         if (original === null) {
-            logger.debug { "get createdTime : ${get(draft, BaseModel::createdTime)}" }
             if (!isLoaded(draft, BaseModel::createdTime)) {
                 draft.createdTime = now
             }

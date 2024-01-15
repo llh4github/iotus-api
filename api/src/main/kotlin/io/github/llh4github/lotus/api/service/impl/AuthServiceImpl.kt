@@ -4,7 +4,7 @@ import io.github.llh4github.lotus.api.dto.LoginParam
 import io.github.llh4github.lotus.api.dto.LoginResult
 import io.github.llh4github.lotus.api.dto.LogoutParam
 import io.github.llh4github.lotus.api.dto.UserAuthDetails
-import io.github.llh4github.lotus.api.security.UsernameAuthToken
+import io.github.llh4github.lotus.api.security.UserAuthToken
 import io.github.llh4github.lotus.api.service.AuthService
 import io.github.llh4github.lotus.api.service.TokenService
 import io.github.llh4github.lotus.api.service.UserDetailsServiceImpl
@@ -21,9 +21,9 @@ class AuthServiceImpl(
 ) : AuthService {
     private val logger = KotlinLogging.logger {}
     override fun login(param: LoginParam): LoginResult {
-        val token = UsernameAuthToken(param.username, param.password)
-        SecurityContextHolder.getContext().authentication = token
         val details = userDetailsService.loadUserByUsername(param.username) as UserAuthDetails
+        val token = UserAuthToken(details, param.password)
+        SecurityContextHolder.getContext().authentication = token
         logger.debug { "${param.username} 登录成功" }
         return LoginResult(
             username = details.username,

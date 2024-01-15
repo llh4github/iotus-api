@@ -8,6 +8,7 @@ input UserInput{
 UserAuthView {
     #allScalars(this)
     id
+    username
     roles{
         title
         code
