@@ -3,6 +3,7 @@ package io.github.llh4github.lotus.api.api.auth
 import io.github.llh4github.lotus.api.api.BaseApi
 import io.github.llh4github.lotus.api.dto.LoginParam
 import io.github.llh4github.lotus.api.dto.LoginResult
+import io.github.llh4github.lotus.api.dto.LogoutParam
 import io.github.llh4github.lotus.api.service.AuthService
 import io.github.llh4github.lotus.commons.JsonWrapper
 import io.swagger.v3.oas.annotations.Operation
@@ -31,5 +32,12 @@ class AuthApi(
     fun login(@RequestBody @Validated param: LoginParam): JsonWrapper<LoginResult> {
         val rs = authService.login(param)
         return ok(rs)
+    }
+
+    @Operation(summary = "登出接口")
+    @PostMapping("logout")
+    fun logout(@RequestBody @Validated param: LogoutParam): JsonWrapper<Nothing> {
+        authService.logout(param)
+        return ok()
     }
 }

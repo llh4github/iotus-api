@@ -81,16 +81,16 @@ class TokenService(
 
     fun verify(token: String): Boolean {
         try {
-            val tokenId = parserTokenId(token)
-            return isNotInBan(tokenId)
+            parser.parseSignedClaims(token)
+            return isNotInBan(token)
         } catch (e: Exception) {
             logger.debug(e) { "token验证不通过： $token" }
             return false
         }
     }
 
-    private fun isNotInBan(tokenId: String): Boolean {
-        val key = "${BAN_TOKEN_CACHE_KEY}:$tokenId"
+    private fun isNotInBan(token: String): Boolean {
+        val key = "${BAN_TOKEN_CACHE_KEY}:$token"
         val value = redisTemplate.opsForValue().get(key)
         return value == null
     }
@@ -112,8 +112,7 @@ class TokenService(
     //endregion parse token
 
     fun banToken(token: String) {
-        val tokenId = parserTokenId(token)
-        val key = "${BAN_TOKEN_CACHE_KEY}:$tokenId"
-        redisTemplate.opsForValue().set(key, token, securityProperties.token.maxExpireTimeMs, TimeUnit.MILLISECONDS)
+        val key = "${BAN_TOKEN_CACHE_KEY}:$token"
+        redisTemplate.opsForValue().set(key, "BANNED", securityProperties.token.maxExpireTimeMs, TimeUnit.MILLISECONDS)
     }
 }

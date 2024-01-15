@@ -33,6 +33,7 @@ class JwtAuthenticationFilter(
         }
         val jwt = authHeader.substring(7)
         if (tokenService.isInvalid(jwt)) {
+//            SecurityContextHolder.getContext().authentication = null
             filterChain.doFilter(request, response)
             return
         }

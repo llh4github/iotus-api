@@ -2,6 +2,7 @@ package io.github.llh4github.lotus.api.service.impl
 
 import io.github.llh4github.lotus.api.dto.LoginParam
 import io.github.llh4github.lotus.api.dto.LoginResult
+import io.github.llh4github.lotus.api.dto.LogoutParam
 import io.github.llh4github.lotus.api.dto.UserAuthDetails
 import io.github.llh4github.lotus.api.security.UsernameAuthToken
 import io.github.llh4github.lotus.api.service.AuthService
@@ -29,5 +30,11 @@ class AuthServiceImpl(
             accessToken = tokenService.createToken(details),
             refreshToken = tokenService.createRefreshToken(details),
         )
+    }
+
+    override fun logout(param: LogoutParam) {
+        SecurityContextHolder.getContext().authentication = null
+        tokenService.banToken(param.accessToken)
+        tokenService.banToken(param.refreshToken)
     }
 }
