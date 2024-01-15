@@ -2,7 +2,7 @@ package io.github.llh4github.lotus.api.dao
 
 import BaseModel
 import org.babyfish.jimmer.View
-import org.babyfish.jimmer.spring.repository.fetchPage
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.babyfish.jimmer.sql.fetcher.Fetcher
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.KExecutable
@@ -16,7 +16,6 @@ import org.babyfish.jimmer.sql.kt.ast.query.KConfigurableRootQuery
 import org.babyfish.jimmer.sql.kt.ast.query.KMutableRootQuery
 import org.babyfish.jimmer.sql.kt.ast.query.specification.KSpecification
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.Page
 import org.springframework.data.repository.NoRepositoryBean
 import kotlin.reflect.KClass
 
@@ -104,4 +103,10 @@ abstract class BaseDao<E : BaseModel> {
 
     fun save(entity: E, block: KSaveCommandDsl.() -> Unit): KSimpleSaveResult<E> =
         sqlClient.save(entity, block = block)
+
+    fun save(entity: E): E = save(entity, SaveMode.UPSERT).modifiedEntity
+
+    fun save(entity: E, mode: SaveMode): KSimpleSaveResult<E> =
+        save(entity) { setMode(mode) }
+
 }

@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.ProviderManager
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
@@ -31,8 +30,11 @@ class SpringSecurityConfig(
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http.csrf { it.disable() }
 //            .cors{Customizer.withDefaults(it) }
-            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
-            .exceptionHandling { it.authenticationEntryPoint(AuthenticationFailedHandler()) }
+//            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            .exceptionHandling {
+                it.authenticationEntryPoint(AuthenticationFailedHandler())
+                it.accessDeniedHandler(AccessDeniedHandlerImpl())
+            }
             .logout { it.logoutSuccessHandler(LogoutSuccess()) }
             .authorizeHttpRequests {
                 it.requestMatchers(*securityProperties.annoUrl.toTypedArray()).permitAll()

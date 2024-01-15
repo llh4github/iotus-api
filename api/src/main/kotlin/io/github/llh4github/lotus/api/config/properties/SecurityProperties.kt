@@ -36,8 +36,10 @@ data class TokenProperties(
     var issuer: String = "lotus-api",
     /**
      * 令牌秘钥
+     *
+     * 用base64，至少需要43个字符，不含特殊符号。
      */
-    var secret: String = "BQsHEp0L4F4Klu0ixpuMOlCnMuSzQ",
+    var secret: String = "VyHZ8YGV9w94dRw8ixVzJgcoDXqvRGrFOHzCxiMIgbgmM",
     /**
      * 时间单位
      */
@@ -55,14 +57,14 @@ data class TokenProperties(
      * 令牌有效时间(毫秒)
      */
     val expireTimeMs by lazy {
-        TimeUnit.SECONDS.convert(expireTime.toLong(), timeUnit)
+        TimeUnit.MILLISECONDS.convert(expireTime.toLong(), timeUnit)
     }
 
     /**
      * refresh令牌有效时间(毫秒)
      */
     val refreshExpireTimeMs by lazy {
-        TimeUnit.SECONDS.convert(refreshExpireTime.toLong(), timeUnit)
+        TimeUnit.MILLISECONDS.convert(refreshExpireTime.toLong(), timeUnit)
     }
 
     /**
