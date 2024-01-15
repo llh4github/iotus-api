@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component
  */
 @Component
 class UsernameAuthenticationProvider(
-
 ) : AuthenticationProvider {
     private val logger = KotlinLogging.logger {}
     override fun authenticate(authentication: Authentication): Authentication? {

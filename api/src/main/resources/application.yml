@@ -9,3 +9,4 @@ lotus:
       - /doc.html
       - /webjars/**
       - /favicon.ico
+      - /auth/login

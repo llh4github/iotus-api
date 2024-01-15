@@ -1,7 +1,7 @@
 package io.github.llh4github.lotus.api.dto
 
+import io.github.llh4github.lotus.api.security.PurviewInfo
 import io.github.llh4github.lotus.model.auth.dto.UserAuthView
-import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 /**
@@ -13,11 +13,14 @@ import org.springframework.security.core.userdetails.UserDetails
 data class UserAuthDetails(
     val authInfo: UserAuthView
 ) : UserDetails {
-    override fun getAuthorities(): List<SimpleGrantedAuthority> {
+    override fun getAuthorities(): List<PurviewInfo> {
         val roles = authInfo.roles.map { it.code }
-            .map { SimpleGrantedAuthority(it) }
+            .map { PurviewInfo.role(it) }
             .toList()
-        return roles
+        val purview = authInfo.roles.flatMap { it.urlResources }
+            .map { PurviewInfo.url(it.path, it.method) }
+            .toList()
+        return roles + purview
     }
 
     val userId = authInfo.id

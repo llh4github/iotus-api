@@ -12,6 +12,7 @@ import org.springframework.security.web.FilterInvocation
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource
 import org.springframework.util.AntPathMatcher
 
+@Deprecated(message = "用DynamicAccessDecisionManager")
 internal class PermissionMetadataSource(
     private val userDao: UserDao,
 ) : FilterInvocationSecurityMetadataSource {

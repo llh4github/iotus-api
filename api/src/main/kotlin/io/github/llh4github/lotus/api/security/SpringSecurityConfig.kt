@@ -38,9 +38,11 @@ class SpringSecurityConfig(
             .logout { it.logoutSuccessHandler(LogoutSuccess()) }
             .authorizeHttpRequests {
                 it.requestMatchers(*securityProperties.annoUrl.toTypedArray()).permitAll()
-                    .anyRequest().authenticated()
+                    .anyRequest().access(UrlAccessDecisionManager())
+
             }
             .addFilterAt(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
+
         return http.build()
     }
 
