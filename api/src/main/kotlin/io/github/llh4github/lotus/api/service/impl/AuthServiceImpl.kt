@@ -9,13 +9,11 @@ import io.github.llh4github.lotus.api.service.AuthService
 import io.github.llh4github.lotus.api.service.TokenService
 import io.github.llh4github.lotus.api.service.UserDetailsServiceImpl
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 
 @Service
 class AuthServiceImpl(
-    private val authenticationManager: AuthenticationManager,
     private val tokenService: TokenService,
     private val userDetailsService: UserDetailsServiceImpl
 ) : AuthService {
