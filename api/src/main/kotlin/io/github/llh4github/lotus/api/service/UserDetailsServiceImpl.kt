@@ -19,7 +19,8 @@ class UserDetailsServiceImpl(
     private val userDao: UserDao
 ) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails {
-        val data = userDao.findByUsername(UserAuthView::class, username) ?: throw UsernameNotFoundException("")
+        val data = userDao.findByUsername(UserAuthView::class, username)
+            ?: throw UsernameNotFoundException("用户名或密码不正确")
         return UserAuthDetails(data)
     }
 }

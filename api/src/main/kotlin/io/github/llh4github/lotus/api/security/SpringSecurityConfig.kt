@@ -1,5 +1,6 @@
 package io.github.llh4github.lotus.api.security
 
+import io.github.llh4github.lotus.api.config.properties.SecurityProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 /**
  *
@@ -21,7 +23,8 @@ import org.springframework.security.web.SecurityFilterChain
 @Configuration
 class SpringSecurityConfig(
     val providers: List<AuthenticationProvider>,
-
+    val securityProperties: SecurityProperties,
+    val jwtAuthenticationFilter: JwtAuthenticationFilter,
 ) {
 
     @Bean
@@ -29,7 +32,13 @@ class SpringSecurityConfig(
         http.csrf { it.disable() }
 //            .cors{Customizer.withDefaults(it) }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
-//            .logout { }
+            .exceptionHandling { it.authenticationEntryPoint(AuthenticationFailedHandler()) }
+            .logout { it.logoutSuccessHandler(LogoutSuccess()) }
+            .authorizeHttpRequests {
+                it.requestMatchers(*securityProperties.annoUrl.toTypedArray()).permitAll()
+                    .anyRequest().authenticated()
+            }
+            .addFilterAt(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
     }
 

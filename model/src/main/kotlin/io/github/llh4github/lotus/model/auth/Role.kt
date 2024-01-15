@@ -10,7 +10,7 @@ import org.babyfish.jimmer.sql.*
  * @author llh
  */
 @Entity
-@Table(name = "auth_user")
+@Table(name = "auth_role")
 interface Role : BaseModel {
 
     val title: String

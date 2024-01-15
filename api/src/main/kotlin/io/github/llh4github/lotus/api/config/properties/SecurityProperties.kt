@@ -72,6 +72,15 @@ data class TokenProperties(
         val bytes = Decoders.BASE64.decode(secret)
         Keys.hmacShaKeyFor(bytes)
     }
+
+    /**
+     * 令牌最大有效时间(毫秒)
+     */
+    val maxExpireTimeMs: Long by lazy {
+        if (refreshExpireTimeMs > expireTimeMs)
+            refreshExpireTimeMs
+        else expireTimeMs
+    }
 }
 
 

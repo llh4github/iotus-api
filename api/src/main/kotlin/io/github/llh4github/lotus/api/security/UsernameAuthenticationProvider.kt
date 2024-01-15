@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component
  * @author llh
  */
 @Component
-class UsernameAuthenticationProvider : AuthenticationProvider {
+class UsernameAuthenticationProvider(
+
+) : AuthenticationProvider {
     private val logger = KotlinLogging.logger {}
     override fun authenticate(authentication: Authentication): Authentication? {
         if (!supports(authentication::class.java)) {
@@ -20,8 +22,7 @@ class UsernameAuthenticationProvider : AuthenticationProvider {
             return null
         }
         val token = authentication as UsernameAuthToken
-
-        TODO("Not yet implemented")
+        return token
     }
 
     override fun supports(authentication: Class<*>): Boolean {

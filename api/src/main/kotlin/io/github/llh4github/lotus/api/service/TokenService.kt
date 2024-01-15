@@ -6,8 +6,10 @@ import io.github.llh4github.lotus.api.utils.IdUtil
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.jsonwebtoken.JwtBuilder
 import io.jsonwebtoken.Jwts
+import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Service
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 /**
  *
@@ -19,6 +21,7 @@ import java.util.*
 class TokenService(
     private val idUtil: IdUtil,
     private val securityProperties: SecurityProperties,
+    private val redisTemplate: StringRedisTemplate,
 ) {
 
     val tokenProperties by lazy { securityProperties.token }
@@ -76,17 +79,18 @@ class TokenService(
 
     fun verify(token: String): Boolean {
         try {
-            parser.parse(token)
-            return isNotInBan(token)
+            val tokenId = parserTokenId(token)
+            return isNotInBan(tokenId)
         } catch (e: Exception) {
             logger.debug(e) { "token验证不通过： $token" }
             return false
         }
     }
 
-    private fun isNotInBan(token: String): Boolean {
-        // redis op
-        return true
+    private fun isNotInBan(tokenId: String): Boolean {
+        val key = "${BAN_TOKEN_CACHE_KEY}:$tokenId"
+        val value = redisTemplate.opsForValue().get(key)
+        return value == null
     }
 
     fun parserUsername(token: String): String {
@@ -98,5 +102,16 @@ class TokenService(
         val claims = parser.parseSignedClaims(token).payload
         return claims.get(USER_ID_KEY, Long::class.java)
     }
+
+    fun parserTokenId(token: String): String {
+        val claims = parser.parseSignedClaims(token).payload
+        return claims.id
+    }
     //endregion parse token
+
+    fun banToken(token: String) {
+        val tokenId = parserTokenId(token)
+        val key = "${BAN_TOKEN_CACHE_KEY}:$tokenId"
+        redisTemplate.opsForValue().set(key, token, securityProperties.token.maxExpireTimeMs, TimeUnit.MILLISECONDS)
+    }
 }
