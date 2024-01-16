@@ -1,6 +1,6 @@
 package io.github.llh4github.lotus.api.security
 
-import io.github.llh4github.lotus.api.service.TokenService
+import io.github.llh4github.lotus.api.service.security.TokenService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse

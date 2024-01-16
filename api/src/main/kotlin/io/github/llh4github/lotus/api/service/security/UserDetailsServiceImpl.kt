@@ -1,4 +1,4 @@
-package io.github.llh4github.lotus.api.service
+package io.github.llh4github.lotus.api.service.security
 
 import io.github.llh4github.lotus.api.dao.UserDao
 import io.github.llh4github.lotus.api.dto.UserAuthDetails

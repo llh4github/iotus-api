@@ -1,4 +1,4 @@
-package io.github.llh4github.lotus.api.service
+package io.github.llh4github.lotus.api.service.auth
 
 import io.github.llh4github.lotus.model.auth.dto.RoleAddInput
 

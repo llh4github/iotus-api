@@ -4,7 +4,7 @@ import io.github.llh4github.lotus.api.api.BaseApi
 import io.github.llh4github.lotus.api.dto.LoginParam
 import io.github.llh4github.lotus.api.dto.LoginResult
 import io.github.llh4github.lotus.api.dto.LogoutParam
-import io.github.llh4github.lotus.api.service.AuthService
+import io.github.llh4github.lotus.api.service.auth.AuthenticateService
 import io.github.llh4github.lotus.commons.JsonWrapper
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController
 @Tag(name = "身份认证")
 @RestController
 @RequestMapping("auth")
-class AuthApi(
-    private val authService: AuthService,
+class AuthenticateApi(
+    private val authService: AuthenticateService,
 ) : BaseApi() {
 
     @Operation(summary = "登录接口")
