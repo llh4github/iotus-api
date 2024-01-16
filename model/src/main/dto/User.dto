@@ -30,4 +30,6 @@ UserAuthView {
 
 specification UserSimpleQuerySpec {
     like(username)
+    @io.swagger.v3.oas.annotations.media.Schema(title="分页参数")
+    page: io.github.llh4github.lotus.model.PageQueryParam
 }
