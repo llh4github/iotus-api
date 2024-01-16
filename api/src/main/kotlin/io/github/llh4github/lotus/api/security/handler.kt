@@ -14,6 +14,7 @@ import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler
 
 
+@Deprecated("用全局异常处理")
 internal class AuthenticationFailedHandler : AuthenticationEntryPoint {
     private val logger = KotlinLogging.logger {}
     override fun commence(
@@ -31,6 +32,7 @@ internal class AuthenticationFailedHandler : AuthenticationEntryPoint {
     }
 }
 
+@Deprecated("自定义url内处理")
 internal class LogoutSuccess : LogoutSuccessHandler {
     override fun onLogoutSuccess(
         request: HttpServletRequest?,
@@ -42,6 +44,7 @@ internal class LogoutSuccess : LogoutSuccessHandler {
     }
 }
 
+@Deprecated("用全局异常处理")
 internal class AccessDeniedHandlerImpl : AccessDeniedHandler {
     override fun handle(
         request: HttpServletRequest?,

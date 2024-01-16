@@ -33,6 +33,8 @@ class SpringSecurityConfig(
 //            .cors{Customizer.withDefaults(it) }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .exceptionHandling {
+                // 用全局异常处理
+                it.disable()
                 it.authenticationEntryPoint(AuthenticationFailedHandler())
                 it.accessDeniedHandler(AccessDeniedHandlerImpl())
             }
