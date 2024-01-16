@@ -35,10 +35,8 @@ class SpringSecurityConfig(
             .exceptionHandling {
                 // 用全局异常处理
                 it.disable()
-                it.authenticationEntryPoint(AuthenticationFailedHandler())
-                it.accessDeniedHandler(AccessDeniedHandlerImpl())
             }
-            .logout { it.logoutSuccessHandler(LogoutSuccess()) }
+            .logout { it.logoutUrl("/auth/logout")}
             .authorizeHttpRequests {
                 it.requestMatchers(*securityProperties.annoUrl.toTypedArray()).permitAll()
                     .anyRequest().access(UrlAccessDecisionManager())

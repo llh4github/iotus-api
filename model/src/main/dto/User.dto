@@ -8,7 +8,7 @@ input UserInput{
 @kotlin.Deprecated(message = "换个类名")
 input CreateUserInput{
     username
-//    @JsonIgnore(false)
+//    @JsonIgnore(value = false)
     password
     id(roles) as roleIds
 }
