@@ -1,6 +1,6 @@
 package io.github.llh4github.lotus.model.auth
 
-import BaseModel
+import io.github.llh4github.lotus.model.BaseModel
 import io.github.llh4github.lotus.model.HttpMethodEnums
 import io.swagger.v3.oas.annotations.media.Schema
 import org.babyfish.jimmer.sql.*

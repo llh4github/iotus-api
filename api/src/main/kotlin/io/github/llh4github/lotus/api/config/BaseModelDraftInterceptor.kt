@@ -1,8 +1,8 @@
 package io.github.llh4github.lotus.api.config
 
-import BaseModel
-import BaseModelDraft
 import io.github.llh4github.lotus.api.utils.SecurityUtil
+import io.github.llh4github.lotus.model.BaseModel
+import io.github.llh4github.lotus.model.BaseModelDraft
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.babyfish.jimmer.kt.isLoaded
 import org.babyfish.jimmer.sql.DraftInterceptor

@@ -1,6 +1,6 @@
 package io.github.llh4github.lotus.model.auth
 
-import BaseModel
+import io.github.llh4github.lotus.model.BaseModel
 import org.babyfish.jimmer.sql.*
 
 /**

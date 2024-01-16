@@ -1,6 +1,6 @@
 package io.github.llh4github.lotus.api.dao
 
-import BaseModel
+import io.github.llh4github.lotus.model.BaseModel
 import org.babyfish.jimmer.View
 import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.babyfish.jimmer.sql.fetcher.Fetcher

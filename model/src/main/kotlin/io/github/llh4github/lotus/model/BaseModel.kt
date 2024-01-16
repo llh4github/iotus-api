@@ -1,3 +1,5 @@
+package io.github.llh4github.lotus.model
+
 import com.fasterxml.jackson.annotation.JsonFormat
 import io.github.llh4github.lotus.model.auth.User
 import io.swagger.v3.oas.annotations.media.Schema
