@@ -1,7 +1,7 @@
 package io.github.llh4github.lotus.api.api.auth
 
 import io.github.llh4github.lotus.api.api.BaseApi
-import io.github.llh4github.lotus.api.service.RoleService
+import io.github.llh4github.lotus.api.service.auth.RoleService
 import io.github.llh4github.lotus.commons.JsonWrapper
 import io.github.llh4github.lotus.model.auth.dto.RoleAddInput
 import io.swagger.v3.oas.annotations.Operation

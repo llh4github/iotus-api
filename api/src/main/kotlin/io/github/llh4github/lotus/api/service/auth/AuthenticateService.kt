@@ -1,4 +1,4 @@
-package io.github.llh4github.lotus.api.service
+package io.github.llh4github.lotus.api.service.auth
 
 import io.github.llh4github.lotus.api.dto.LoginParam
 import io.github.llh4github.lotus.api.dto.LoginResult
@@ -10,7 +10,7 @@ import io.github.llh4github.lotus.api.dto.LogoutParam
  * Created At 2024/1/15 11:33
  * @author llh
  */
-interface AuthService {
+interface AuthenticateService {
     fun login(param: LoginParam): LoginResult
     fun logout(param: LogoutParam)
 }

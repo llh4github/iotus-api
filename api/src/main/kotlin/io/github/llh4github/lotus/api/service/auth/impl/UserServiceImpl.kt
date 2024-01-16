@@ -1,7 +1,7 @@
-package io.github.llh4github.lotus.api.service.impl
+package io.github.llh4github.lotus.api.service.auth.impl
 
 import io.github.llh4github.lotus.api.dao.UserDao
-import io.github.llh4github.lotus.api.service.UserService
+import io.github.llh4github.lotus.api.service.auth.UserService
 import io.github.llh4github.lotus.model.auth.dto.CreateUserInput
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.security.crypto.password.PasswordEncoder
