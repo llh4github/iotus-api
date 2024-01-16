@@ -1,8 +1,6 @@
 package io.github.llh4github.lotus.api.api
 
-import io.github.llh4github.lotus.commons.ErrorConvention
 import io.github.llh4github.lotus.commons.JsonWrapper
-import io.github.llh4github.lotus.commons.NoErrorEnums
 
 /**
  * 接口类的基类，包含一些通用方法
@@ -13,15 +11,8 @@ import io.github.llh4github.lotus.commons.NoErrorEnums
 abstract class BaseApi {
     fun <T> ok(
         data: T? = null,
-        ok: ErrorConvention = NoErrorEnums.OK,
     ): JsonWrapper<T> {
-        return JsonWrapper.response(ok, data)
+        return JsonWrapper.ok(msg = "", data = data)
     }
 
-    fun <T> error(
-        error: ErrorConvention,
-        data: T? = null
-    ): JsonWrapper<T> {
-        return JsonWrapper.response(error, data)
-    }
 }

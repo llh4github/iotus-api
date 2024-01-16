@@ -2,6 +2,7 @@ package io.github.llh4github.lotus.api.service
 
 import io.github.llh4github.lotus.api.dao.UserDao
 import io.github.llh4github.lotus.api.dto.UserAuthDetails
+import io.github.llh4github.lotus.api.exceptions.AuthModuleException
 import io.github.llh4github.lotus.model.auth.dto.UserAuthView
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -20,7 +21,7 @@ class UserDetailsServiceImpl(
 ) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails {
         val data = userDao.findByUsername(UserAuthView::class, username)
-            ?: throw UsernameNotFoundException("用户名或密码不正确")
+            ?: throw AuthModuleException.usernameNotFound("用户名或密码不正确")
         return UserAuthDetails(data)
     }
 }

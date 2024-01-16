@@ -15,16 +15,13 @@ data class JsonWrapper<T>(
     val msg: String,
     @Schema(title = "响应数据")
     val data: T? = null,
+    @Schema(title = "模块名", description = "在异常的情况下，此值才有意义")
+    val module: String = "",
 ) {
     companion object {
         @JvmStatic
-        fun <T> response(error: ErrorConvention, data: T? = null): JsonWrapper<T> {
-            return JsonWrapper(error.code, error.msg, data)
-        }
-
-        @JvmStatic
-        fun ok(msg: String): JsonWrapper<Nothing> {
-            return JsonWrapper(NoErrorEnums.OK.code, msg, null)
+        fun <T> ok(msg: String, data: T?): JsonWrapper<T> {
+            return JsonWrapper("OK", msg, data)
         }
     }
 
