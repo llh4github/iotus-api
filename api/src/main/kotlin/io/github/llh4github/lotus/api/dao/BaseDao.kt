@@ -1,6 +1,8 @@
 package io.github.llh4github.lotus.api.dao
 
 import io.github.llh4github.lotus.model.BaseModel
+import io.github.oshai.kotlinlogging.KotlinLogging
+import org.babyfish.jimmer.Input
 import org.babyfish.jimmer.View
 import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.babyfish.jimmer.sql.fetcher.Fetcher
@@ -27,6 +29,8 @@ import kotlin.reflect.KClass
  */
 @NoRepositoryBean
 abstract class BaseDao<E : BaseModel> {
+
+    private val logger = KotlinLogging.logger {}
 
     @Autowired
     protected lateinit var sqlClient: KSqlClient
@@ -105,6 +109,8 @@ abstract class BaseDao<E : BaseModel> {
         sqlClient.save(entity, block = block)
 
     fun save(entity: E): E = save(entity, SaveMode.UPSERT).modifiedEntity
+    fun save(dto: Input<E>): E = save(dto.toEntity(), SaveMode.UPSERT).modifiedEntity
+    fun insert(dto: Input<E>): E = save(dto.toEntity(), SaveMode.INSERT_ONLY).modifiedEntity
 
     fun save(entity: E, mode: SaveMode): KSimpleSaveResult<E> =
         save(entity) { setMode(mode) }

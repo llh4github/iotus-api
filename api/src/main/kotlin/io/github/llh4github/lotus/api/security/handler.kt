@@ -21,6 +21,10 @@ internal class AuthenticationFailedHandler : AuthenticationEntryPoint {
         response: HttpServletResponse,
         authException: AuthenticationException
     ) {
+        if (request.requestURI == "/error") {
+            // 忽略spring-security异常重定向
+            return
+        }
         logger.debug(authException) { "认证失败: ${authException.message}，无法访问： ${request.requestURI}" }
         val json = JsonWrapper.response(AppErrorEnums.AUTH_FAILED, null)
         ServletUtil.writeJson(response, json)

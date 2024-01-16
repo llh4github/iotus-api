@@ -5,10 +5,11 @@ import io.github.llh4github.lotus.model.auth.username
 import org.babyfish.jimmer.View
 import org.babyfish.jimmer.sql.fetcher.Fetcher
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Repository
 import kotlin.reflect.KClass
 
-@Repository
+@Component
 class UserDao : BaseDao<User>() {
     override val entityType: KClass<User>
         get() = User::class
