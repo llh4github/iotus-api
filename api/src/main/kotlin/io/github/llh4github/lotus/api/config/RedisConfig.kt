@@ -4,8 +4,12 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.listener.PatternTopic
+import org.springframework.data.redis.listener.RedisMessageListenerContainer
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.StringRedisSerializer
+
 
 /**
  *
@@ -31,5 +35,15 @@ class RedisConfig {
 //        redisTemplate.setEnableTransactionSupport(true)
         redisTemplate.afterPropertiesSet()
         return redisTemplate
+    }
+
+
+    @Bean
+    fun container(
+        connectionFactory: RedisConnectionFactory,
+    ): RedisMessageListenerContainer {
+        val container = RedisMessageListenerContainer()
+        container.setConnectionFactory(connectionFactory)
+        return container
     }
 }
