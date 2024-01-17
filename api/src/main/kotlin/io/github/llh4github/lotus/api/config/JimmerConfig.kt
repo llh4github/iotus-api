@@ -33,6 +33,7 @@ class JimmerConfig {
         objectMapper: ObjectMapper
     ): KCacheFactory {
 
+        val duration: Duration = Duration.ofDays(10L)
         val redisTemplate = RedisCaches.cacheRedisTemplate(connectionFactory)
 
         return object : KCacheFactory {
@@ -44,20 +45,20 @@ class JimmerConfig {
                             redisTemplate,
                             objectMapper,
                             type,
-                            Duration.ofMinutes(30)
+                            duration
                         )
                     )
                     .build()
 
             override fun createAssociatedIdCache(prop: ImmutableProp): Cache<*, *>? =
-                createPropCache(prop, Duration.ofMinutes(10))
+                createPropCache(prop, duration)
 
             @SuppressWarnings("all")
             override fun createAssociatedIdListCache(prop: ImmutableProp): Cache<*, List<*>>? =
-                createPropCache(prop, Duration.ofMinutes(5)) as Cache<*, List<*>>?
+                createPropCache(prop, duration) as Cache<*, List<*>>?
 
             override fun createResolverCache(prop: ImmutableProp): Cache<*, *>? =
-                createPropCache(prop, Duration.ofMinutes(5))
+                createPropCache(prop, duration)
 
             private fun createPropCache(prop: ImmutableProp, duration: Duration): Cache<*, *>? =
                 ChainCacheBuilder<Any, Any>()
