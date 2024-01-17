@@ -9,4 +9,10 @@ input RoleAddInput{
     code
 }
 
+specification RoleSimpleSpec{
+    like(title)
+    like(code)
 
+    @io.swagger.v3.oas.annotations.media.Schema(title="分页参数")
+    page: io.github.llh4github.lotus.model.PageQueryParam
+}

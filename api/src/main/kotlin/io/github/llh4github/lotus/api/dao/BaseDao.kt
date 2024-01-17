@@ -1,6 +1,8 @@
 package io.github.llh4github.lotus.api.dao
 
 import io.github.llh4github.lotus.model.BaseModel
+import io.github.llh4github.lotus.model.PageQueryParam
+import io.github.llh4github.lotus.model.PageResult
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.babyfish.jimmer.Input
 import org.babyfish.jimmer.View
@@ -16,9 +18,11 @@ import org.babyfish.jimmer.sql.kt.ast.mutation.KSaveCommandDsl
 import org.babyfish.jimmer.sql.kt.ast.mutation.KSimpleSaveResult
 import org.babyfish.jimmer.sql.kt.ast.query.KConfigurableRootQuery
 import org.babyfish.jimmer.sql.kt.ast.query.KMutableRootQuery
+import org.babyfish.jimmer.sql.kt.ast.query.fetchPage
 import org.babyfish.jimmer.sql.kt.ast.query.specification.KSpecification
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.NoRepositoryBean
+import java.sql.Connection
 import kotlin.reflect.KClass
 
 /**
@@ -115,4 +119,18 @@ abstract class BaseDao<E : BaseModel> {
     fun save(entity: E, mode: SaveMode): KSimpleSaveResult<E> =
         save(entity) { setMode(mode) }
 
+
+}
+
+fun <E> KConfigurableRootQuery<*, E>.fetchPage(
+    pageParams: PageQueryParam,
+    con: Connection? = null
+): PageResult<E> {
+    return this.fetchPage(pageParams.pageIndex, pageParams.pageSize, con) { entities, totalCount, _ ->
+        PageResult(
+            totalCount,
+            (totalCount + pageParams.pageIndex - 1) / pageParams.pageSize,
+            entities,
+        )
+    }
 }

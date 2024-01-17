@@ -3,7 +3,10 @@ package io.github.llh4github.lotus.api.api.auth
 import io.github.llh4github.lotus.api.api.BaseApi
 import io.github.llh4github.lotus.api.service.auth.RoleService
 import io.github.llh4github.lotus.commons.JsonWrapper
+import io.github.llh4github.lotus.model.PageResult
+import io.github.llh4github.lotus.model.auth.Role
 import io.github.llh4github.lotus.model.auth.dto.RoleAddInput
+import io.github.llh4github.lotus.model.auth.dto.RoleSimpleSpec
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.validation.annotation.Validated
@@ -30,6 +33,13 @@ class RoleApi(
     fun add(@RequestBody @Validated dto: RoleAddInput): JsonWrapper<Nothing> {
         roleService.add(dto)
         return ok(null)
+    }
+
+    @Operation(summary = "分页查询(简易信息)")
+    @PostMapping("page")
+    fun pageQuery(@RequestBody @Validated query: RoleSimpleSpec): JsonWrapper<PageResult<Role>> {
+        val rs = roleService.pageQuery(query, query.page)
+        return ok(rs)
     }
 
 }
