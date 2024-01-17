@@ -10,7 +10,6 @@ import org.springframework.test.context.ActiveProfiles
  * @author llh
  */
 @SpringBootTest
-@ActiveProfiles(value = ["local"])
 class ApiAppTest {
 
     @Test
