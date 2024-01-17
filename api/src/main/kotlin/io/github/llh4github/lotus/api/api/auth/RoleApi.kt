@@ -10,10 +10,7 @@ import io.github.llh4github.lotus.model.auth.dto.RoleSimpleSpec
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 /**
  *
@@ -39,6 +36,13 @@ class RoleApi(
     @PostMapping("page")
     fun pageQuery(@RequestBody @Validated query: RoleSimpleSpec): JsonWrapper<PageResult<Role>> {
         val rs = roleService.pageQuery(query, query.page)
+        return ok(rs)
+    }
+
+    @Operation(summary = "角色信息（简易）")
+    @GetMapping("")
+    fun getById(id: Long): JsonWrapper<Role> {
+        val rs = roleService.findById(id)
         return ok(rs)
     }
 
