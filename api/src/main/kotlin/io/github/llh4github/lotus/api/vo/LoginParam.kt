@@ -1,4 +1,4 @@
-package io.github.llh4github.lotus.api.dto
+package io.github.llh4github.lotus.api.vo
 
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.NotEmpty

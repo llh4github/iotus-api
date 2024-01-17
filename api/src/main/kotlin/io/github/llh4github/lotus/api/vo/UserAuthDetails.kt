@@ -1,4 +1,4 @@
-package io.github.llh4github.lotus.api.dto
+package io.github.llh4github.lotus.api.vo
 
 import io.github.llh4github.lotus.api.security.PurviewInfo
 import io.github.llh4github.lotus.model.auth.dto.UserAuthView

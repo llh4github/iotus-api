@@ -1,6 +1,6 @@
 package io.github.llh4github.lotus.api.utils
 
-import io.github.llh4github.lotus.api.dto.UserAuthDetails
+import io.github.llh4github.lotus.api.vo.UserAuthDetails
 import org.springframework.security.core.context.SecurityContextHolder
 
 /**

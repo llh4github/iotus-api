@@ -1,6 +1,6 @@
 package io.github.llh4github.lotus.api.security
 
-import io.github.llh4github.lotus.api.dto.UserAuthDetails
+import io.github.llh4github.lotus.api.vo.UserAuthDetails
 import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.core.GrantedAuthority
 

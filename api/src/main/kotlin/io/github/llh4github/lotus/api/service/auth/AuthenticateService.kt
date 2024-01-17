@@ -1,8 +1,8 @@
 package io.github.llh4github.lotus.api.service.auth
 
-import io.github.llh4github.lotus.api.dto.LoginParam
-import io.github.llh4github.lotus.api.dto.LoginResult
-import io.github.llh4github.lotus.api.dto.LogoutParam
+import io.github.llh4github.lotus.api.vo.LoginParam
+import io.github.llh4github.lotus.api.vo.LoginResult
+import io.github.llh4github.lotus.api.vo.LogoutParam
 
 /**
  * 认证服务类
