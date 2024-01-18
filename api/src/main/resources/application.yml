@@ -1,0 +1,12 @@
+jimmer:
+  language: kotlin
+lotus:
+  security:
+    anno-url:
+      - /v3/api-docs/**
+      - /swagger-ui/**
+      - /swagger-ui.html
+      - /doc.html
+      - /webjars/**
+      - /favicon.ico
+      - /auth/login
