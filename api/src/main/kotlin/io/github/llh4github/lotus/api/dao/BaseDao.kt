@@ -126,10 +126,10 @@ fun <E> KConfigurableRootQuery<*, E>.fetchPage(
     pageParams: PageQueryParam,
     con: Connection? = null
 ): PageResult<E> {
-    return this.fetchPage(pageParams.pageIndex, pageParams.pageSize, con) { entities, totalCount, _ ->
+    return this.fetchPage(pageParams.pageNum, pageParams.pageSize, con) { entities, totalCount, _ ->
         PageResult(
             totalCount,
-            (totalCount + pageParams.pageIndex - 1) / pageParams.pageSize,
+            (totalCount + pageParams.pageNum) / pageParams.pageSize,
             entities,
         )
     }

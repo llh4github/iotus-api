@@ -14,4 +14,7 @@ data class PageQueryParam(
     val pageIndex: Int = 1,
     @Schema(title = "页大小")
     val pageSize: Int = 10,
-)
+) {
+    // 查询页码从0开始
+    val pageNum = if (pageIndex < 1) pageIndex else pageIndex - 1
+}
