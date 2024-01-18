@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 input UserInput{
    #allScalars(this)
 }
-@kotlin.Deprecated(message = "换个类名")
-input CreateUserInput{
+
+input UserAddInput{
     username
 //    @JsonIgnore(value = false)
     password
