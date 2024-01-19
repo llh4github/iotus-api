@@ -1,5 +1,6 @@
 package io.github.llh4github.lotus.api.security
 
+import io.github.llh4github.lotus.api.config.properties.SecurityProperties
 import io.github.llh4github.lotus.api.service.security.TokenService
 import io.github.llh4github.lotus.api.utils.ServletUtil
 import io.github.llh4github.lotus.commons.JsonWrapper
@@ -10,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
+import org.springframework.util.AntPathMatcher
 import org.springframework.web.filter.OncePerRequestFilter
 
 /**
@@ -22,12 +24,19 @@ import org.springframework.web.filter.OncePerRequestFilter
 class JwtAuthenticationFilter(
     private val tokenService: TokenService,
     private val userDetailsService: UserDetailsService,
+    private val securityProperties: SecurityProperties,
 ) : OncePerRequestFilter() {
+    private val matcher = AntPathMatcher()
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
+        val hasAnno = securityProperties.annoUrl.any { matcher.match(it, request.requestURI) }
+        if (hasAnno) {
+            filterChain.doFilter(request, response)
+            return
+        }
         val authHeader = request.getHeader("Authorization")
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             val json = JsonWrapper(
