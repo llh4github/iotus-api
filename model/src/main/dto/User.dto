@@ -6,13 +6,6 @@ input UserInput{
    #allScalars(this)
 }
 
-input UserAddInput{
-    username
-//    @JsonIgnore(value = false)
-    password
-    id(roles) as roleIds
-}
-
 // 用于查询用户权限信息的view
 UserAuthView {
     #allScalars(this)

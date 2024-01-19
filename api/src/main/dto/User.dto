@@ -1,0 +1,21 @@
+export io.github.llh4github.lotus.model.auth.User
+
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Size
+import io.swagger.v3.oas.annotations.media.Schema
+
+@Schema(title="添加用户所需数据")
+input UserAddInput{
+    @NotBlank(message="用户名不能为空")
+    @Size(max=18,min=3,message="用户名长度在 {min} 和 {max} 个字符之间")
+    username
+
+    password?
+    @NotBlank(message="密码不能为空")
+    @Size(max=18,min=8,message="密码长度在 {min} 和 {max} 个字符之间")
+    @com.fasterxml.jackson.annotation.JsonAlias({"password"})
+    passwordInput : String
+
+    @Schema(title="拥有的角色ID列表")
+    id(roles) as roleIds
+}

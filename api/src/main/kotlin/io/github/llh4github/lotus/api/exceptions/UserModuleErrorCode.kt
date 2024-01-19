@@ -12,6 +12,11 @@ import org.babyfish.jimmer.error.ErrorField
 @ErrorFamily
 enum class UserModuleErrorCode {
     @ErrorField(name = "name", type = String::class)
-    ILLEGAL_USER_NAME
+    ILLEGAL_USER_NAME,
+
+    /**
+     * 用户名已存在
+     */
+    USERNAME_EXIST,
 }
 

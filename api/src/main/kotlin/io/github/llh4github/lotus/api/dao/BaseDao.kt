@@ -115,6 +115,7 @@ abstract class BaseDao<E : BaseModel> {
     fun save(entity: E): E = save(entity, SaveMode.UPSERT).modifiedEntity
     fun save(dto: Input<E>): E = save(dto.toEntity(), SaveMode.UPSERT).modifiedEntity
     fun insert(dto: Input<E>): E = save(dto.toEntity(), SaveMode.INSERT_ONLY).modifiedEntity
+    fun insert(dto: E): E = save(dto, SaveMode.INSERT_ONLY).modifiedEntity
 
     fun save(entity: E, mode: SaveMode): KSimpleSaveResult<E> =
         save(entity) { setMode(mode) }

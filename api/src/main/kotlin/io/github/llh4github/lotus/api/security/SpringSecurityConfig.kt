@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.ProviderManager
+import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -33,10 +34,13 @@ class SpringSecurityConfig(
 //            .cors{Customizer.withDefaults(it) }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .exceptionHandling {
-                // 用全局异常处理
-                it.disable()
+                it.authenticationEntryPoint(AuthenticationFailedHandler())
+                it.accessDeniedHandler(AccessDeniedHandlerImpl())
             }
-            .logout { it.logoutUrl("/auth/logout")}
+            .oauth2Login {
+                it.tokenEndpoint(Customizer.withDefaults())
+            }
+            .logout { it.logoutUrl("/auth/logout") }
             .authorizeHttpRequests {
                 it.requestMatchers(*securityProperties.annoUrl.toTypedArray()).permitAll()
                     .anyRequest().access(UrlAccessDecisionManager())

@@ -8,6 +8,8 @@ import io.github.llh4github.lotus.model.PageResult
 import org.babyfish.jimmer.View
 import org.babyfish.jimmer.sql.fetcher.Fetcher
 import org.babyfish.jimmer.sql.kt.ast.query.specification.KSpecification
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.transaction.support.TransactionTemplate
 import kotlin.reflect.KClass
 
 /**
@@ -19,6 +21,9 @@ import kotlin.reflect.KClass
 abstract class BaseServiceImpl<E : BaseModel, M : BaseDao<E>>(
     protected val baseDao: M
 ) : BaseService<E> {
+
+    @Autowired
+    protected lateinit var transactionTemplate: TransactionTemplate
     override fun exist(id: Long): Boolean {
         return findById(id) != null
     }
