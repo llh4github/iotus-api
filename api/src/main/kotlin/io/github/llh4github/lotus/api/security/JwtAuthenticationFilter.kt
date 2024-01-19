@@ -1,6 +1,8 @@
 package io.github.llh4github.lotus.api.security
 
 import io.github.llh4github.lotus.api.service.security.TokenService
+import io.github.llh4github.lotus.api.utils.ServletUtil
+import io.github.llh4github.lotus.commons.JsonWrapper
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -28,13 +30,25 @@ class JwtAuthenticationFilter(
     ) {
         val authHeader = request.getHeader("Authorization")
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
+            val json = JsonWrapper(
+                code = "NO_TOKEN",
+                module = "AUTH",
+                msg = "用户未登录",
+                data = null
+            )
+            ServletUtil.writeJson(response, json)
             return
         }
         val jwt = authHeader.substring(7)
         if (tokenService.isInvalid(jwt)) {
             SecurityContextHolder.getContext().authentication = null
-            filterChain.doFilter(request, response)
+            val json = JsonWrapper(
+                code = "TOKEN_ERROR",
+                module = "AUTH",
+                msg = "用户未登录或登录凭证已过期",
+                data = null
+            )
+            ServletUtil.writeJson(response, json)
             return
         }
         val username = tokenService.parserUsername(jwt)

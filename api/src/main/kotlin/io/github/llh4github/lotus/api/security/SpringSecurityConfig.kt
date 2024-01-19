@@ -37,9 +37,6 @@ class SpringSecurityConfig(
                 it.authenticationEntryPoint(AuthenticationFailedHandler())
                 it.accessDeniedHandler(AccessDeniedHandlerImpl())
             }
-            .oauth2Login {
-                it.tokenEndpoint(Customizer.withDefaults())
-            }
             .logout { it.logoutUrl("/auth/logout") }
             .authorizeHttpRequests {
                 it.requestMatchers(*securityProperties.annoUrl.toTypedArray()).permitAll()
