@@ -27,18 +27,22 @@ interface BaseModel {
 
     // created_by_user_id
     @IdView(value = "createdByUser")
+    @get:Schema(title = "数据创建者ID")
     val createdBy: Long?
 
 
     // updated_by_user_id
+    @get:Schema(title = "数据更新者ID")
     @IdView(value = "updatedByUser")
     val updatedBy: Long?
 
     @ManyToOne
+    @get:Schema(title = "数据创建者")
     @OnDissociate(DissociateAction.SET_NULL)
     val createdByUser: User?
 
     @ManyToOne
+    @get:Schema(title = "数据更新者")
     @OnDissociate(DissociateAction.SET_NULL)
     val updatedByUser: User?
 }

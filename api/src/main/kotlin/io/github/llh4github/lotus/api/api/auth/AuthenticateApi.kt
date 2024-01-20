@@ -8,6 +8,7 @@ import io.github.llh4github.lotus.api.service.auth.AuthenticateService
 import io.github.llh4github.lotus.commons.JsonWrapper
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.babyfish.jimmer.client.ApiIgnore
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
