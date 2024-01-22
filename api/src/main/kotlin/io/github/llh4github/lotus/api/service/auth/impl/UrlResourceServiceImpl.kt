@@ -1,7 +1,7 @@
 package io.github.llh4github.lotus.api.service.auth.impl
 
 import io.github.llh4github.lotus.api.dao.UrlResourceDao
-import io.github.llh4github.lotus.api.exceptions.UrlResourceException
+import io.github.llh4github.lotus.api.exceptions.auth.UrlResourceException
 import io.github.llh4github.lotus.api.service.BaseServiceImpl
 import io.github.llh4github.lotus.api.service.auth.UrlResourceService
 import io.github.llh4github.lotus.model.HttpMethodEnums

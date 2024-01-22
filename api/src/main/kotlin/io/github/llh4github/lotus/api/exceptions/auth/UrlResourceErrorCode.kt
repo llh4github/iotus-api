@@ -1,4 +1,4 @@
-package io.github.llh4github.lotus.api.exceptions
+package io.github.llh4github.lotus.api.exceptions.auth
 
 import io.github.llh4github.lotus.model.HttpMethodEnums
 import org.babyfish.jimmer.error.ErrorFamily
