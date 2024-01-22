@@ -1,9 +1,9 @@
 package io.github.llh4github.lotus.api.api.auth
 
 import io.github.llh4github.lotus.api.api.BaseApi
-import io.github.llh4github.lotus.api.vo.LoginParam
-import io.github.llh4github.lotus.api.vo.LoginResult
-import io.github.llh4github.lotus.api.vo.LogoutParam
+import io.github.llh4github.lotus.api.vo.auth.LoginParam
+import io.github.llh4github.lotus.api.vo.auth.LoginResult
+import io.github.llh4github.lotus.api.vo.auth.LogoutParam
 import io.github.llh4github.lotus.api.service.auth.AuthenticateService
 import io.github.llh4github.lotus.commons.JsonWrapper
 import io.swagger.v3.oas.annotations.Operation

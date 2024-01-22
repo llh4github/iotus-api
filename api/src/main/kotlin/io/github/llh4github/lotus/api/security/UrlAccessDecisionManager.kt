@@ -28,7 +28,7 @@ class UrlAccessDecisionManager : AuthorizationManager<RequestAuthorizationContex
         val uri = context.request.requestURI
         val method = context.request.method
         urlResources.forEach {
-            if (it.methodEnums === HttpMethodEnums.ALL) {
+            if (it.methodEnums === HttpMethodEnums.ALL_METHOD) {
                 matcher.match(it.code, uri)
                 return AuthorizationDecision(true)
             }

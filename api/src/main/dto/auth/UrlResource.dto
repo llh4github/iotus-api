@@ -1,0 +1,54 @@
+export io.github.llh4github.lotus.model.auth.UrlResource
+
+
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.Size
+import io.swagger.v3.oas.annotations.media.Schema
+
+
+input UrlResourceAddInput{
+
+    @NotBlank(message="url路径不能为空")
+    @Size(max=150,min=1,message="url路径长度在 {min} 和 {max} 个字符之间")
+    path
+
+    @Schema(title = "请求方法")
+//    @NotBlank(message="url路径不能为空")
+//    @Size(max=150,min=1,message="url路径长度在 {min} 和 {max} 个字符之间")
+    method
+}
+input UrlResourceUpdateInput{
+
+    id!
+    @NotBlank(message="url路径不能为空")
+    @Size(max=150,min=1,message="url路径长度在 {min} 和 {max} 个字符之间")
+    path
+
+    @Schema(title = "请求方法")
+//    @NotBlank(message="url路径不能为空")
+//    @Size(max=150,min=1,message="url路径长度在 {min} 和 {max} 个字符之间")
+    method
+}
+
+UrlResourceSimpleView{
+    #allScalars(this,BaseModel)
+         createdByUser{
+                id
+                username
+            }
+            updatedByUser{
+                id
+                username
+            }
+}
+
+specification UrlReouceSpec{
+    like(path)
+    method
+
+    @io.swagger.v3.oas.annotations.media.Schema(title="分页参数")
+    page: io.github.llh4github.lotus.model.PageQueryParam
+}
+

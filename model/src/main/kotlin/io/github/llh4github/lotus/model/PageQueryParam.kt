@@ -1,5 +1,6 @@
 package io.github.llh4github.lotus.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import io.swagger.v3.oas.annotations.media.Schema
 
 /**
@@ -14,4 +15,8 @@ data class PageQueryParam(
     val pageIndex: Int = 1,
     @Schema(title = "页大小")
     val pageSize: Int = 10,
-)
+) {
+    // 查询页码从0开始
+    @JsonIgnore
+    val pageNum = if (pageIndex < 1) pageIndex else pageIndex - 1
+}

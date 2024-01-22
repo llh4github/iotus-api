@@ -12,6 +12,7 @@ import org.babyfish.jimmer.sql.meta.DatabaseNamingStrategy
 import org.babyfish.jimmer.sql.runtime.DefaultDatabaseNamingStrategy
 import org.springframework.context.annotation.Bean
 import org.springframework.data.redis.connection.RedisConnectionFactory
+import org.springframework.data.redis.core.RedisOperations
 import org.springframework.stereotype.Component
 import java.time.Duration
 
@@ -38,6 +39,7 @@ class JimmerConfig {
 
         return object : KCacheFactory {
 
+
             override fun createObjectCache(type: ImmutableType): Cache<*, *>? =
                 ChainCacheBuilder<Any, Any>()
                     .add(
@@ -60,17 +62,34 @@ class JimmerConfig {
             override fun createResolverCache(prop: ImmutableProp): Cache<*, *>? =
                 createPropCache(prop, duration)
 
-            private fun createPropCache(prop: ImmutableProp, duration: Duration): Cache<*, *>? =
-                ChainCacheBuilder<Any, Any>()
-                    .add(
-                        RedisValueBinder(
-                            redisTemplate,
-                            objectMapper,
-                            prop,
-                            duration
-                        )
-                    )
+            private fun createPropCache(prop: ImmutableProp, duration: Duration): Cache<*, *>? {
+                val binder = MyRedisValueBinder(
+                    redisTemplate,
+                    objectMapper,
+                    prop,
+                    duration
+                )
+                return ChainCacheBuilder<Any, Any>()
+                    .add(binder)
                     .build()
+            }
         }
+    }
+}
+
+private const val KEY_PREFIX: String = "jimmer-cache:"
+
+internal class MyRedisValueBinder(
+    operations: RedisOperations<String, ByteArray>,
+    objectMapper: ObjectMapper,
+    prop: ImmutableProp,
+    duration: Duration
+) : RedisValueBinder<Any, Any>(operations, objectMapper, prop, duration) {
+    override fun getKeyPrefix(type: ImmutableType): String {
+        return KEY_PREFIX + type.javaClass.getSimpleName() + ':'
+    }
+
+    override fun getKeyPrefix(prop: ImmutableProp): String {
+        return KEY_PREFIX + prop.declaringType.javaClass.getSimpleName() + '.' + prop.name + ':'
     }
 }

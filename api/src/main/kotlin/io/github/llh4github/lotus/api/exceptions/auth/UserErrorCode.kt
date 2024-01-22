@@ -1,4 +1,4 @@
-package io.github.llh4github.lotus.api.exceptions
+package io.github.llh4github.lotus.api.exceptions.auth
 
 import org.babyfish.jimmer.error.ErrorFamily
 import org.babyfish.jimmer.error.ErrorField
@@ -10,8 +10,13 @@ import org.babyfish.jimmer.error.ErrorField
  * @author llh
  */
 @ErrorFamily
-enum class UserModuleErrorCode {
+enum class UserErrorCode {
     @ErrorField(name = "name", type = String::class)
-    ILLEGAL_USER_NAME
+    ILLEGAL_USER_NAME,
+
+    /**
+     * 用户名已存在
+     */
+    USERNAME_EXIST,
 }
 

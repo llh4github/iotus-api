@@ -2,9 +2,17 @@ package io.github.llh4github.lotus.api.api.auth
 
 import io.github.llh4github.lotus.api.api.BaseApi
 import io.github.llh4github.lotus.api.service.auth.UserService
+import io.github.llh4github.lotus.commons.JsonWrapper
+import io.github.llh4github.lotus.model.PageResult
+import io.github.llh4github.lotus.model.auth.User
+import io.github.llh4github.lotus.model.auth.dto.UserAddInput
+import io.github.llh4github.lotus.model.auth.dto.UserAndRoleInfoView
+import io.github.llh4github.lotus.model.auth.dto.UserQuerySpec
+import io.github.llh4github.lotus.model.auth.dto.UserUpdateInput
+import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation.*
 
 /**
  *
@@ -19,5 +27,24 @@ class UserApi(
     private val userService: UserService
 ) : BaseApi() {
 
+    @PostMapping
+    @Operation(summary = "创建用户")
+    fun add(@RequestBody @Validated dto: UserAddInput): JsonWrapper<User> {
+        val saved = userService.add(dto)
+        return ok(saved)
+    }
 
+    @PostMapping("page")
+    @Operation(summary = "分页查询（带角色信息）", description = "默认的分页接口")
+    fun page(@RequestBody @Validated param: UserQuerySpec): JsonWrapper<PageResult<UserAndRoleInfoView>> {
+        val rs = userService.pageQueryOutType(UserAndRoleInfoView::class, param, param.page)
+        return ok(rs)
+    }
+
+    @PutMapping("")
+    @Operation(summary = "更新用户基础信息")
+    fun update(@RequestBody @Validated dto: UserUpdateInput): JsonWrapper<User> {
+       val rs = userService.update(dto)
+        return ok(rs)
+    }
 }

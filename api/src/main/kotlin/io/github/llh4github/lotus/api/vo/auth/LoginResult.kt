@@ -1,4 +1,4 @@
-package io.github.llh4github.lotus.api.vo
+package io.github.llh4github.lotus.api.vo.auth
 
 /**
  *

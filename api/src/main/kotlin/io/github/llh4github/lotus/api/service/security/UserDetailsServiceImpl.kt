@@ -1,8 +1,8 @@
 package io.github.llh4github.lotus.api.service.security
 
 import io.github.llh4github.lotus.api.dao.UserDao
-import io.github.llh4github.lotus.api.vo.UserAuthDetails
-import io.github.llh4github.lotus.api.exceptions.AuthModuleException
+import io.github.llh4github.lotus.api.exceptions.auth.AuthModuleException
+import io.github.llh4github.lotus.api.vo.auth.UserAuthDetails
 import io.github.llh4github.lotus.model.auth.dto.UserAuthView
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

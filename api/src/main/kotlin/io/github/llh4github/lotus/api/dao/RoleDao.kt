@@ -2,8 +2,10 @@ package io.github.llh4github.lotus.api.dao
 
 import io.github.llh4github.lotus.model.auth.Role
 import io.github.llh4github.lotus.model.auth.code
+import io.github.llh4github.lotus.model.auth.id
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.babyfish.jimmer.sql.kt.ast.expression.ne
 import org.springframework.stereotype.Component
 import kotlin.reflect.KClass
 
@@ -24,9 +26,12 @@ class RoleDao : BaseDao<Role>() {
         return !isExistCode(code)
     }
 
-    fun isExistCode(code: String): Boolean {
+    fun isExistCode(code: String, notId: Long? = null): Boolean {
         return createQuery {
             where(table.code eq code)
+            notId?.let {
+                where(table.id ne notId)
+            }
             select(table)
         }.count() > 0
     }

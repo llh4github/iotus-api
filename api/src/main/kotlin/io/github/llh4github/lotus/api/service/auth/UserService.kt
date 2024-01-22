@@ -2,6 +2,8 @@ package io.github.llh4github.lotus.api.service.auth
 
 import io.github.llh4github.lotus.api.service.BaseService
 import io.github.llh4github.lotus.model.auth.User
+import io.github.llh4github.lotus.model.auth.dto.UserAddInput
+import io.github.llh4github.lotus.model.auth.dto.UserUpdateInput
 
 /**
  *
@@ -11,5 +13,7 @@ import io.github.llh4github.lotus.model.auth.User
  */
 interface UserService : BaseService<User> {
 
+    fun add(dto: UserAddInput): User?
+    fun update(dto: UserUpdateInput): User?
 
 }

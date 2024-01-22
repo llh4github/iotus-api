@@ -1,4 +1,4 @@
-package io.github.llh4github.lotus.api.exceptions
+package io.github.llh4github.lotus.api.exceptions.auth
 
 import org.babyfish.jimmer.error.ErrorFamily
 
@@ -9,6 +9,6 @@ import org.babyfish.jimmer.error.ErrorFamily
  * @author llh
  */
 @ErrorFamily
-enum class RoleModuleErrorCode {
+enum class RoleErrorCode {
     ROLE_CODE_DUPLICATE,
 }

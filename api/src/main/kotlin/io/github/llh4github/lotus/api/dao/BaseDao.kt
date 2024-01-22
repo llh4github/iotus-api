@@ -114,10 +114,18 @@ abstract class BaseDao<E : BaseModel> {
 
     fun save(entity: E): E = save(entity, SaveMode.UPSERT).modifiedEntity
     fun save(dto: Input<E>): E = save(dto.toEntity(), SaveMode.UPSERT).modifiedEntity
+
+    fun update(dto: Input<E>): E = save(dto.toEntity(), SaveMode.UPDATE_ONLY).modifiedEntity
+
     fun insert(dto: Input<E>): E = save(dto.toEntity(), SaveMode.INSERT_ONLY).modifiedEntity
+    fun insert(dto: E): E = save(dto, SaveMode.INSERT_ONLY).modifiedEntity
 
     fun save(entity: E, mode: SaveMode): KSimpleSaveResult<E> =
         save(entity) { setMode(mode) }
+
+    fun delete(ids:Collection<Long>): Int {
+        return sqlClient.deleteByIds(entityType, ids).totalAffectedRowCount
+    }
 
 
 }
@@ -126,10 +134,10 @@ fun <E> KConfigurableRootQuery<*, E>.fetchPage(
     pageParams: PageQueryParam,
     con: Connection? = null
 ): PageResult<E> {
-    return this.fetchPage(pageParams.pageIndex, pageParams.pageSize, con) { entities, totalCount, _ ->
+    return this.fetchPage(pageParams.pageNum, pageParams.pageSize, con) { entities, totalCount, _ ->
         PageResult(
             totalCount,
-            (totalCount + pageParams.pageIndex - 1) / pageParams.pageSize,
+            (totalCount + pageParams.pageNum) / pageParams.pageSize,
             entities,
         )
     }
