@@ -1,8 +1,8 @@
 package io.github.llh4github.lotus.api.service.security
 
 import io.github.llh4github.lotus.api.config.properties.SecurityProperties
-import io.github.llh4github.lotus.api.vo.UserAuthDetails
 import io.github.llh4github.lotus.api.utils.IdUtil
+import io.github.llh4github.lotus.api.vo.auth.UserAuthDetails
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.jsonwebtoken.JwtBuilder
 import io.jsonwebtoken.Jwts

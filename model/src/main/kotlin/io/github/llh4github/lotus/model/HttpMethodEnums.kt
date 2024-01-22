@@ -11,8 +11,11 @@ import org.babyfish.jimmer.sql.EnumType
  */
 @EnumType(EnumType.Strategy.ORDINAL)
 enum class HttpMethodEnums {
+    /**
+     * 允许所有的请求方法
+     */
     @EnumItem(ordinal = 0)
-    ALL,
+    ALL_METHOD,
 
     @EnumItem(ordinal = 120)
     NONE,
