@@ -59,5 +59,11 @@ class RoleApi(
         return ok(rs)
     }
 
+    @Operation(summary = "删除角色信息")
+    @DeleteMapping("")
+    fun delete(id: Long): JsonWrapper<Int> {
+        val rs = roleService.deleteById(id)
+        return ok(rs)
+    }
 
 }

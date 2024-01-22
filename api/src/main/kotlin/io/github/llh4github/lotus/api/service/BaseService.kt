@@ -21,6 +21,12 @@ interface BaseService<E : BaseModel> {
     fun <S : View<E>> findById(staticType: KClass<S>, id: Long): S?
     fun findByIds(ids: List<Long>, fetcher: Fetcher<E>?): List<E>
     fun <S : View<E>> findByIds(staticType: KClass<S>, ids: List<Long>): List<S>
+
+    fun deleteById(ids: List<Long>): Int
+    fun deleteById(id: Long): Int {
+        return deleteById(listOf(id))
+    }
+
     fun pageQuery(
         param: KSpecification<E>, pageIndex: Int, pageSize: Int,
         fetcher: Fetcher<E>? = null

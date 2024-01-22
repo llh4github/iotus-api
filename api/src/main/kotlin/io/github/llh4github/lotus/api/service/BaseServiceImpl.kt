@@ -44,6 +44,12 @@ abstract class BaseServiceImpl<E : BaseModel, M : BaseDao<E>>(
         return baseDao.findByIds(staticType, ids)
     }
 
+    override fun deleteById(ids: List<Long>): Int {
+        return transactionTemplate.execute {
+            baseDao.delete(ids)
+        } ?: 0
+    }
+
     override fun pageQuery(
         param: KSpecification<E>, pageIndex: Int, pageSize: Int, fetcher: Fetcher<E>?
     ): PageResult<E> {
