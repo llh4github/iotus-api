@@ -6,6 +6,7 @@ import io.github.llh4github.lotus.api.service.BaseServiceImpl
 import io.github.llh4github.lotus.api.service.auth.UserService
 import io.github.llh4github.lotus.model.auth.User
 import io.github.llh4github.lotus.model.auth.dto.UserAddInput
+import io.github.llh4github.lotus.model.auth.dto.UserUpdateInput
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -24,6 +25,12 @@ class UserServiceImpl(
         val toSave = dto.copy(password = pwd)
         return transactionTemplate.execute {
             baseDao.insert(toSave)
+        }
+    }
+
+    override fun update(dto: UserUpdateInput): User? {
+        return transactionTemplate.execute {
+            baseDao.update(dto)
         }
     }
 }
