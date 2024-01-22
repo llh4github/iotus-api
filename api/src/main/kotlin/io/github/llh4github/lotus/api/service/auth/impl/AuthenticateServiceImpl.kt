@@ -1,8 +1,8 @@
 package io.github.llh4github.lotus.api.service.auth.impl
 
-import io.github.llh4github.lotus.api.vo.LoginParam
-import io.github.llh4github.lotus.api.vo.LoginResult
-import io.github.llh4github.lotus.api.vo.LogoutParam
+import io.github.llh4github.lotus.api.vo.auth.LoginParam
+import io.github.llh4github.lotus.api.vo.auth.LoginResult
+import io.github.llh4github.lotus.api.vo.auth.LogoutParam
 import io.github.llh4github.lotus.api.vo.UserAuthDetails
 import io.github.llh4github.lotus.api.security.UserAuthToken
 import io.github.llh4github.lotus.api.service.auth.AuthenticateService
