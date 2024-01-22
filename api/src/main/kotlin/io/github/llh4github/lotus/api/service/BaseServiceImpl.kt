@@ -44,7 +44,7 @@ abstract class BaseServiceImpl<E : BaseModel, M : BaseDao<E>>(
         return baseDao.findByIds(staticType, ids)
     }
 
-    override fun deleteById(ids: List<Long>): Int {
+    override fun deleteById(ids:Collection<Long>): Int {
         return transactionTemplate.execute {
             baseDao.delete(ids)
         } ?: 0

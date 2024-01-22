@@ -24,6 +24,7 @@ class RoleServiceImplImpl(
         }
     }
 
+
     override fun update(dto: RoleUpdateInput): Role? {
         if (baseDao.isExistCode(dto.code, dto.id)) {
             throw RoleModuleException.roleCodeDuplicate("${dto.code} 己存在")

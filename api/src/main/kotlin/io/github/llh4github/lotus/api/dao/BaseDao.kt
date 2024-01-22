@@ -123,7 +123,7 @@ abstract class BaseDao<E : BaseModel> {
     fun save(entity: E, mode: SaveMode): KSimpleSaveResult<E> =
         save(entity) { setMode(mode) }
 
-    fun delete(ids: List<Long>): Int {
+    fun delete(ids:Collection<Long>): Int {
         return sqlClient.deleteByIds(entityType, ids).totalAffectedRowCount
     }
 

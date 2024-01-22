@@ -22,7 +22,7 @@ interface BaseService<E : BaseModel> {
     fun findByIds(ids: List<Long>, fetcher: Fetcher<E>?): List<E>
     fun <S : View<E>> findByIds(staticType: KClass<S>, ids: List<Long>): List<S>
 
-    fun deleteById(ids: List<Long>): Int
+    fun deleteById(ids: Collection<Long>): Int
     fun deleteById(id: Long): Int {
         return deleteById(listOf(id))
     }
