@@ -28,7 +28,6 @@ class JwtAuthenticationFilter(
     private val securityProperties: SecurityProperties,
 ) : OncePerRequestFilter() {
     private val matcher = AntPathMatcher()
-    private val _logger = KotlinLogging.logger {}
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
@@ -69,7 +68,6 @@ class JwtAuthenticationFilter(
             token.details = WebAuthenticationDetailsSource().buildDetails(request)
             SecurityContextHolder.getContext().authentication = token
         }
-        _logger.debug { "fuck ? ${SecurityContextHolder.getContext().authentication.isAuthenticated}" }
         filterChain.doFilter(request, response)
     }
 }
