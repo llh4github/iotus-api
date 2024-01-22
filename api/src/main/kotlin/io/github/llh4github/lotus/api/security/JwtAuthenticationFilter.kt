@@ -4,6 +4,7 @@ import io.github.llh4github.lotus.api.config.properties.SecurityProperties
 import io.github.llh4github.lotus.api.service.security.TokenService
 import io.github.llh4github.lotus.api.utils.ServletUtil
 import io.github.llh4github.lotus.commons.JsonWrapper
+import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -27,6 +28,7 @@ class JwtAuthenticationFilter(
     private val securityProperties: SecurityProperties,
 ) : OncePerRequestFilter() {
     private val matcher = AntPathMatcher()
+    private val _logger = KotlinLogging.logger {}
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
@@ -50,7 +52,7 @@ class JwtAuthenticationFilter(
         }
         val jwt = authHeader.substring(7)
         if (tokenService.isInvalid(jwt)) {
-            SecurityContextHolder.getContext().authentication = null
+            SecurityContextHolder.clearContext()
             val json = JsonWrapper(
                 code = "TOKEN_ERROR",
                 module = "AUTH",
@@ -67,6 +69,7 @@ class JwtAuthenticationFilter(
             token.details = WebAuthenticationDetailsSource().buildDetails(request)
             SecurityContextHolder.getContext().authentication = token
         }
+        _logger.debug { "fuck ? ${SecurityContextHolder.getContext().authentication.isAuthenticated}" }
         filterChain.doFilter(request, response)
     }
 }

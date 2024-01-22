@@ -35,16 +35,18 @@ internal class AuthenticationFailedHandler : AuthenticationEntryPoint {
 
 
 internal class AccessDeniedHandlerImpl : AccessDeniedHandler {
+    private val logger = KotlinLogging.logger {}
     override fun handle(
-        request: HttpServletRequest?,
+        request: HttpServletRequest,
         response: HttpServletResponse,
         accessDeniedException: AccessDeniedException
     ) {
+        logger.debug(accessDeniedException) { "用户无权限访问 ${request.requestURI}" }
         val json = JsonWrapper(
             code = "ACCESS_DENIED",
             module = "AUTH",
             data = null,
-            msg = "用户未登录"
+            msg = "权限不足"
         )
         ServletUtil.writeJson(response, json)
     }
