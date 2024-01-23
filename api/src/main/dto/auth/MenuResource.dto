@@ -26,6 +26,24 @@ input MenuResourceAddInput{
     path
 }
 
+@Schema(title="添加菜单数据")
+input MenuResourceUpdateInput{
+    id!
+    @NotBlank(message="标题不能为空")
+    @Size(max=15,min=1,message="标题长度在 {min} 和 {max} 个字符之间")
+    title
+
+    @NotBlank(message="页面名称不能为空")
+    @Size(max=25,min=1,message="页面名称长度在 {min} 和 {max} 个字符之间")
+    name
+
+    @Min(value=0,message="排序号不能为负数")
+    rank
+
+    @NotBlank(message="页面路径不能为空")
+    @Size(max=150,min=1,message="页面路径长度在 {min} 和 {max} 个字符之间")
+    path
+}
 specification MenuResourceSimpleSpec{
     like(title)
     like(name)
@@ -47,4 +65,15 @@ MenuResourceSimpleView{
          id
         username
     }
+}
+MenuResourceSimpleTreeView{
+
+     #allScalars(this)
+     id
+     id(parent)
+     children{
+         #allScalars(this)
+         id
+         id(parent)
+     }*
 }

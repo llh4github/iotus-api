@@ -2,10 +2,7 @@ package io.github.llh4github.lotus.model.auth
 
 import io.github.llh4github.lotus.model.BaseModel
 import io.swagger.v3.oas.annotations.media.Schema
-import org.babyfish.jimmer.sql.Column
-import org.babyfish.jimmer.sql.Entity
-import org.babyfish.jimmer.sql.Key
-import org.babyfish.jimmer.sql.Table
+import org.babyfish.jimmer.sql.*
 
 /**
  *
@@ -32,4 +29,10 @@ interface MenuResource : BaseModel {
 
     @get:Schema(title = "页面名称（英文）")
     val name: String
+
+    @ManyToOne
+    val parent: MenuResource?
+
+    @OneToMany(mappedBy = "parent")
+    val children: List<MenuResource>
 }

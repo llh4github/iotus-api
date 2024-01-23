@@ -4,9 +4,11 @@ import io.github.llh4github.lotus.commons.JsonWrapper
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.babyfish.jimmer.error.CodeBasedRuntimeException
 import org.babyfish.jimmer.sql.runtime.ExecutionException
+import org.springframework.security.access.AccessDeniedException
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
-import org.springframework.security.access.AccessDeniedException
+
 /**
  *
  *
@@ -17,6 +19,19 @@ import org.springframework.security.access.AccessDeniedException
 class ExceptionRestHandler {
 
     private val logger = KotlinLogging.logger { }
+
+    @ExceptionHandler(value = [MethodArgumentNotValidException::class])
+    fun accessException(e: MethodArgumentNotValidException): JsonWrapper<Map<String, String?>> {
+        logger.error { "字段验证不通过： ${e.message}" }
+        val errors = e.bindingResult.fieldErrors
+        val map = errors.associate { it.field to it.defaultMessage }
+        return JsonWrapper(
+            code = "METHOD_ARGUMENT_NOT_VALID",
+            msg = "未通过参数验证",
+            module = "SYSTEM",
+            data = map
+        )
+    }
 
     @ExceptionHandler(value = [AccessDeniedException::class])
     fun accessException(e: AccessDeniedException): JsonWrapper<Nothing> {

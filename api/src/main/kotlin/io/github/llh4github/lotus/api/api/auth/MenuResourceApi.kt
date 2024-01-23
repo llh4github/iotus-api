@@ -2,19 +2,15 @@ package io.github.llh4github.lotus.api.api.auth
 
 import io.github.llh4github.lotus.api.api.BaseApi
 import io.github.llh4github.lotus.api.service.auth.MenuResourceService
+import io.github.llh4github.lotus.api.vo.IdSet
 import io.github.llh4github.lotus.commons.JsonWrapper
 import io.github.llh4github.lotus.model.PageResult
 import io.github.llh4github.lotus.model.auth.MenuResource
-import io.github.llh4github.lotus.model.auth.dto.MenuResourceAddInput
-import io.github.llh4github.lotus.model.auth.dto.MenuResourceSimpleSpec
-import io.github.llh4github.lotus.model.auth.dto.MenuResourceSimpleView
+import io.github.llh4github.lotus.model.auth.dto.*
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 /**
  *
@@ -36,6 +32,27 @@ class MenuResourceApi(
         return ok(rs)
     }
 
+    @PutMapping("")
+    @Operation(summary = "更新数据")
+    fun update(@RequestBody @Validated dto: MenuResourceUpdateInput): JsonWrapper<MenuResource> {
+        val rs = menuResourceService.update(dto)
+        return ok(rs)
+    }
+
+    @DeleteMapping
+    @Operation(summary = "删除数据")
+    fun delete(@RequestBody @Validated idSet: IdSet): JsonWrapper<Int> {
+        val rs = menuResourceService.deleteById(idSet.ids)
+        return ok(rs)
+    }
+
+    @GetMapping("")
+    @Operation(summary = "查询简单信息")
+    fun getById(id: Long): JsonWrapper<MenuResourceSimpleView> {
+        val rs = menuResourceService.findById(MenuResourceSimpleView::class, id)
+        return ok(rs)
+    }
+
     @PostMapping("page")
     @Operation(summary = "分页查询")
     fun page(@RequestBody @Validated dto: MenuResourceSimpleSpec): JsonWrapper<PageResult<MenuResourceSimpleView>> {
@@ -43,4 +60,17 @@ class MenuResourceApi(
         return ok(rs)
     }
 
+    @GetMapping("tree")
+    @Operation(summary = "指定的单棵菜单树")
+    fun tree(id: Long): JsonWrapper<MenuResourceSimpleTreeView> {
+        val rs = menuResourceService.findById(MenuResourceSimpleTreeView::class, id)
+        return ok(rs)
+    }
+
+    @GetMapping("tree/top")
+    @Operation(summary = "菜单树列表")
+    fun topTree(): JsonWrapper<List<MenuResourceSimpleTreeView>> {
+        val rs = menuResourceService.topTree(MenuResourceSimpleTreeView::class)
+        return ok(rs)
+    }
 }
