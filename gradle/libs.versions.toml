@@ -13,7 +13,7 @@ easyexcel = "3.3.3"
 jjwt = "0.12.3"
 knife4j = "4.4.0"
 swagger3 = "2.2.19"
-jimmer = "0.8.77"
+jimmer = "0.8.84"
 
 [libraries]
 kotlin-allopen = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
