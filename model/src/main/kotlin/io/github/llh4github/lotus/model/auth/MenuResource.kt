@@ -2,6 +2,7 @@ package io.github.llh4github.lotus.model.auth
 
 import io.github.llh4github.lotus.model.BaseModel
 import io.swagger.v3.oas.annotations.media.Schema
+import org.babyfish.jimmer.sql.Column
 import org.babyfish.jimmer.sql.Entity
 import org.babyfish.jimmer.sql.Key
 import org.babyfish.jimmer.sql.Table
@@ -22,6 +23,7 @@ interface MenuResource : BaseModel {
     val icon: String?
 
     @get:Schema(title = "页面排序号")
+    @Column(name = "rank_num")
     val rank: Int?
 
     @Key
