@@ -6,20 +6,7 @@ input UserInput{
    #allScalars(this)
 }
 
-// 用于查询用户权限信息的view
-UserAuthView {
-    #allScalars(this)
-    id
-    username
-    roles{
-        title
-        code
-        urlResources{
-            method
-            path
-        }
-    }
-}
+
 
 specification UserSimpleQuerySpec {
     like(username)

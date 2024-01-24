@@ -17,10 +17,13 @@ data class UserAuthDetails(
         val roles = authInfo.roles.map { it.code }
             .map { PurviewInfo.role(it) }
             .toList()
-        val purview = authInfo.roles.flatMap { it.urlResources }
+        val url = authInfo.roles.flatMap { it.urlResources }
             .map { PurviewInfo.url(it.path, it.method) }
             .toList()
-        return roles + purview
+        val purview = authInfo.roles.flatMap { it.urlResources }
+            .mapNotNull { it.purviewCode }
+            .map { PurviewInfo.purviewCode(it.code) }
+        return roles + purview + url
     }
 
     val userId = authInfo.id
