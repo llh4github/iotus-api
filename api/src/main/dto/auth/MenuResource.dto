@@ -66,6 +66,8 @@ MenuResourceSimpleView{
         username
     }
 }
+
+@Schema(title="菜单树结构数据",description = "通常是用来构建前端页面菜单的")
 MenuResourceSimpleTreeView{
      #allScalars(this)
      -title
