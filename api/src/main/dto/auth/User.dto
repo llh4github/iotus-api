@@ -83,9 +83,10 @@ UserAuthView {
         urlResources{
             method
             path
-            purviewCode{
+            flat(purviewCode) {
                 code
             }
+
         }
     }
 }

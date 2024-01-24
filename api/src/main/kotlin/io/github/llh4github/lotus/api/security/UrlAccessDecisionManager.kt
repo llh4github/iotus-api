@@ -40,5 +40,15 @@ class UrlAccessDecisionManager : AuthorizationManager<RequestAuthorizationContex
         return AuthorizationDecision(false)
     }
 
+    fun urlPurview(
+        authentication: Supplier<Authentication>,
+        url: String,
+        method: String,
+    ): Boolean {
+        val authorities = authentication.get().authorities
+        val urlPurviewList = authorities.filterIsInstance<UrlPurviewVo>()
+            .toList()
+        return false
 
+    }
 }
