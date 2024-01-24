@@ -67,13 +67,20 @@ MenuResourceSimpleView{
     }
 }
 MenuResourceSimpleTreeView{
-
      #allScalars(this)
+     -title
+     -rank
+     -icon
      id
      id(parent)
+     meta
      children{
          #allScalars(this)
          id
          id(parent)
+         meta
+        -title
+        -rank
+        -icon
      }*
 }

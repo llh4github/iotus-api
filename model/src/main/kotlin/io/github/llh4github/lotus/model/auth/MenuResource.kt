@@ -2,6 +2,7 @@ package io.github.llh4github.lotus.model.auth
 
 import io.github.llh4github.lotus.model.BaseModel
 import io.swagger.v3.oas.annotations.media.Schema
+import org.babyfish.jimmer.Formula
 import org.babyfish.jimmer.sql.*
 
 /**
@@ -29,6 +30,14 @@ interface MenuResource : BaseModel {
 
     @get:Schema(title = "页面名称（英文）")
     val name: String
+
+    @Formula(dependencies = ["title"])
+    val meta: MenuMetaVo
+        get() = MenuMetaVo(
+            title = title,
+            icon = icon,
+            rank = rank,
+        )
 
     @ManyToOne
     val parent: MenuResource?
