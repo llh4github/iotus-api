@@ -1,0 +1,53 @@
+export io.github.llh4github.lotus.model.auth.PurviewCode
+
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Min
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.Size
+import io.swagger.v3.oas.annotations.media.Schema
+
+input PurviewCodeAddInput{
+    @NotBlank(message="权限说明不能为空")
+    @Size(max=150,min=1,message="权限说明在 {min} 和 {max} 个字符之间")
+    remark
+
+    @NotBlank(message="权限代号不能为空")
+    @Size(max=50,min=1,message="权限代号在 {min} 和 {max} 个字符之间")
+    code
+
+    @Min(value=0,message="菜单ID不能为负数")
+    id(menu)
+}
+input PurviewCodeUpdateInput{
+    id!
+    @NotBlank(message="权限说明不能为空")
+    @Size(max=150,min=1,message="权限说明在 {min} 和 {max} 个字符之间")
+    remark
+
+    @NotBlank(message="权限代号不能为空")
+    @Size(max=50,min=1,message="权限代号在 {min} 和 {max} 个字符之间")
+    code
+
+    @Min(value=0,message="菜单ID不能为负数")
+    id(menu)
+}
+specification PurviewCodeSimpleSpec{
+    like(code)
+    like(remark)
+    id(menu)
+
+    @io.swagger.v3.oas.annotations.media.Schema(title="分页参数")
+    page: io.github.llh4github.lotus.model.PageQueryParam
+}
+PurviewCodeSimpleView{
+     #allScalars(this,BaseModel)
+     createdByUser{
+            id
+            username
+        }
+    updatedByUser{
+         id
+        username
+    }
+}
