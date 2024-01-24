@@ -43,7 +43,7 @@ class JimmerConfig {
             override fun createObjectCache(type: ImmutableType): Cache<*, *>? =
                 ChainCacheBuilder<Any, Any>()
                     .add(
-                        RedisValueBinder(
+                        MyRedisValueTypeBinder(
                             redisTemplate,
                             objectMapper,
                             type,
@@ -85,6 +85,23 @@ internal class MyRedisValueBinder(
     prop: ImmutableProp,
     duration: Duration
 ) : RedisValueBinder<Any, Any>(operations, objectMapper, prop, duration) {
+
+    override fun getKeyPrefix(type: ImmutableType): String {
+        return KEY_PREFIX + type.javaClass.getSimpleName() + ':'
+    }
+
+    override fun getKeyPrefix(prop: ImmutableProp): String {
+        return KEY_PREFIX + prop.declaringType.javaClass.getSimpleName() + '.' + prop.name + ':'
+    }
+}
+
+internal class MyRedisValueTypeBinder(
+    operations: RedisOperations<String, ByteArray>,
+    objectMapper: ObjectMapper,
+    prop: ImmutableType,
+    duration: Duration
+) : RedisValueBinder<Any, Any>(operations, objectMapper, prop, duration) {
+
     override fun getKeyPrefix(type: ImmutableType): String {
         return KEY_PREFIX + type.javaClass.getSimpleName() + ':'
     }
