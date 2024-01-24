@@ -2,11 +2,7 @@ package io.github.llh4github.lotus.model.auth
 
 import io.github.llh4github.lotus.model.BaseModel
 import io.swagger.v3.oas.annotations.media.Schema
-import org.babyfish.jimmer.sql.Entity
-import org.babyfish.jimmer.sql.JoinColumn
-import org.babyfish.jimmer.sql.Key
-import org.babyfish.jimmer.sql.ManyToOne
-import org.babyfish.jimmer.sql.Table
+import org.babyfish.jimmer.sql.*
 
 /**
  *
@@ -29,4 +25,6 @@ interface PurviewCode : BaseModel {
     @JoinColumn(name = "menu_resource_id")
     val menu: MenuResource
 
+    @OneToOne
+    val urlResource: UrlResource
 }

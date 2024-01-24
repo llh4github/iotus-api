@@ -24,4 +24,7 @@ interface UrlResource : BaseModel {
     @ManyToMany(mappedBy = "urlResources")
     val roles: List<Role>
 
+    @OneToOne
+    @JoinColumn(name = "purview_code_id")
+    val purviewCode: PurviewCode?
 }
