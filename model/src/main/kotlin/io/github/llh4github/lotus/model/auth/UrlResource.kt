@@ -27,5 +27,6 @@ interface UrlResource : BaseModel {
 
     @OneToOne
     @JoinColumn(name = "purview_code_id")
+    @OnDissociate(value = DissociateAction.SET_NULL)
     val purviewCode: PurviewCode?
 }
