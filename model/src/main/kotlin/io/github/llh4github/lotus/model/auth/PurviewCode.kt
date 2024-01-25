@@ -18,13 +18,14 @@ interface PurviewCode : BaseModel {
     @get:Schema(title = "权限代号")
     val code: String
 
-    @get:Schema(title = "说明")
-    val remark: String
+    @get:Schema(title = "权限标题")
+    val title: String
 
     @ManyToOne
     @JoinColumn(name = "menu_resource_id")
+    @OnDissociate(value = DissociateAction.DELETE)
     val menu: MenuResource
 
-    @OneToOne
-    val urlResource: UrlResource
+    @OneToOne(mappedBy = "purviewCode")
+    val urlResource: UrlResource?
 }

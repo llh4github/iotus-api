@@ -18,8 +18,12 @@ input RoleAddInput{
     @Pattern(regexp="^\\w{3,18}$",message="角色代号只能由数字、字母与下划线组成，且长度为3到18个字符")
     code
 
+    @kotlin.Deprecated(message="与菜单相关联")
     @Schema(title = "此角色可访问的URL资源ID列表")
     id(urlResources) as urlResourcesIds
+
+    @Schema(title = "此角色可访问的菜单资源ID列表")
+    id(menuResources) as menuResourceIds
 }
 
 input RoleUpdateInput{
@@ -35,8 +39,12 @@ input RoleUpdateInput{
     @Pattern(regexp="^\\w{3,18}$",message="角色代号只能由数字、字母与下划线组成，且长度为3到18个字符")
     code
 
+    @kotlin.Deprecated(message="与菜单相关联")
     @Schema(title = "此角色可访问的URL资源ID列表")
     id(urlResources) as urlResourcesIds
+
+    @Schema(title = "此角色可访问的菜单资源ID列表")
+    id(menuResources) as menuResourceIds
 }
 
 specification RoleSimpleSpec{
@@ -61,6 +69,12 @@ RoleSimpleView{
 
 RoleWithPermissionView{
     #allScalars(this,BaseModel)
+
+    menuResources{
+        #allScalars(this)
+        id
+    }
+    @kotlin.Deprecated(message="与菜单相关联")
     urlResources{
         id
        path

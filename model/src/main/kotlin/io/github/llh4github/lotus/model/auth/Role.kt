@@ -28,5 +28,14 @@ interface Role : BaseModel {
         joinColumnName = "role_id",
         inverseJoinColumnName = "url_resource_id"
     )
+    @Deprecated("与菜单相关联")
     val urlResources: List<UrlResource>
+
+    @ManyToMany
+    @JoinTable(
+        name = "auth_role_menu_resource_link",
+        joinColumnName = "role_id",
+        inverseJoinColumnName = "menu_resource_id"
+    )
+    val menuResources: List<MenuResource>
 }
