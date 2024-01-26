@@ -24,9 +24,9 @@ interface Role : BaseModel {
 
     @ManyToMany
     @JoinTable(
-        name = "auth_role_url_resource_link",
+        name = "auth_role_menu_resource_link",
         joinColumnName = "role_id",
-        inverseJoinColumnName = "url_resource_id"
+        inverseJoinColumnName = "menu_resource_id"
     )
-    val urlResources: List<UrlResource>
+    val menuResources: List<MenuResource>
 }

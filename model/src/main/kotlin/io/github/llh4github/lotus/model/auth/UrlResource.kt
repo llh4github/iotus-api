@@ -21,10 +21,9 @@ interface UrlResource : BaseModel {
     @get:Schema(title = "HTTP方法")
     val method: HttpMethodEnums
 
-    @ManyToMany(mappedBy = "urlResources")
-    val roles: List<Role>
 
     @OneToOne
     @JoinColumn(name = "purview_code_id")
+    @OnDissociate(value = DissociateAction.SET_NULL)
     val purviewCode: PurviewCode?
 }

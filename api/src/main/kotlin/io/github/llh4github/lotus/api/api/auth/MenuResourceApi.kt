@@ -27,8 +27,28 @@ class MenuResourceApi(
 
     @PostMapping("")
     @Operation(summary = "添加数据")
-    fun add(@RequestBody @Validated dto: MenuResourceAddInput): JsonWrapper<MenuResource> {
+    fun add(
+        @RequestBody @Validated dto: MenuResourceAddInput
+    ): JsonWrapper<MenuResource> {
         val rs = menuResourceService.add(dto)
+        return ok(rs)
+    }
+
+    @PostMapping("withPurview")
+    @Operation(summary = "添加数据(带权限代号)")
+    fun addWithPurview(
+        @RequestBody @Validated dto: MenuResourceAddWithPurviewInput
+    ): JsonWrapper<MenuResource> {
+        val rs = menuResourceService.addWithPurview(dto)
+        return ok(rs)
+    }
+
+    @PutMapping("withPurview")
+    @Operation(summary = "更新数据(带权限代号)")
+    suspend fun updateWithPurview(
+        @RequestBody @Validated dto: MenuResourceUpdateWithPurviewInput
+    ): JsonWrapper<MenuResource> {
+        val rs = menuResourceService.updateWithPurview(dto)
         return ok(rs)
     }
 
@@ -57,6 +77,15 @@ class MenuResourceApi(
     @Operation(summary = "分页查询")
     fun page(@RequestBody @Validated dto: MenuResourceSimpleSpec): JsonWrapper<PageResult<MenuResourceSimpleView>> {
         val rs = menuResourceService.pageQueryOutType(MenuResourceSimpleView::class, dto, dto.page)
+        return ok(rs)
+    }
+
+    @PostMapping("page/withPurviewCode")
+    @Operation(summary = "分页查询(带权限代号信息)")
+    fun pageWithPurviewCode(
+        @RequestBody @Validated dto: MenuResourceSimpleSpec
+    ): JsonWrapper<PageResult<MenuResourcePurviewCodeView>> {
+        val rs = menuResourceService.pageQueryOutType(MenuResourcePurviewCodeView::class, dto, dto.page)
         return ok(rs)
     }
 

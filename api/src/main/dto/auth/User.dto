@@ -80,12 +80,14 @@ UserAuthView {
     roles{
         title
         code
-        urlResources{
-            method
-            path
-            purviewCode{
-                code
+        menuResources{
+            purviewCodes{
+                flat(urlResource){
+                    path as urlPath
+                    method as urlMethod
+                }
             }
         }
+
     }
 }
