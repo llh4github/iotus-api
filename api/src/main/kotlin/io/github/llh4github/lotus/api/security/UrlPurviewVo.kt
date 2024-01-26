@@ -12,15 +12,10 @@ import org.springframework.security.core.GrantedAuthority
 data class UrlPurviewVo(
     val url: String,
     val method: HttpMethodEnums,
-    @Deprecated(message = "不用这个字段啦")
-    val purviewCode: String? = null,
+
 ) : GrantedAuthority {
     override fun getAuthority(): String {
-        return if (purviewCode === null) {
-            // 未定义接口权限字符的，返回无法匹配的值
-            method.name + url
-        } else {
-            purviewCode
-        }
+        // 自定义的验证逻辑，这里的返回值不重要
+        return method.name + url
     }
 }

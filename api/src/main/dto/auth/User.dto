@@ -89,14 +89,5 @@ UserAuthView {
             }
         }
 
-        @kotlin.Deprecated(message="与菜单相关联")
-        urlResources{
-            method
-            path
-            flat(purviewCode) {
-                code
-            }
-
-        }
     }
 }
