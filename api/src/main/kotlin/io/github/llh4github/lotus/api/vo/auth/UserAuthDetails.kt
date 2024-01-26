@@ -14,10 +14,12 @@ data class UserAuthDetails(
     val authInfo: UserAuthView
 ) : UserDetails {
     override fun getAuthorities(): List<UrlPurviewVo> {
-        val purview = authInfo.roles.flatMap { it.urlResources }
-            .map { UrlPurviewVo(it.path, it.method, it.code) }
+        return authInfo.roles
+            .flatMap { it.menuResources }
+            .flatMap { it.purviewCodes }
+            .filter { it.urlPath != null && it.urlMethod != null }
+            .map { UrlPurviewVo(it.urlPath!!, it.urlMethod!!) }
             .toList()
-        return purview
     }
 
     val userId = authInfo.id

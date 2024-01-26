@@ -16,31 +16,19 @@ import java.util.function.Supplier
  * @author llh
  */
 class UrlAccessDecisionManager : AuthorizationManager<RequestAuthorizationContext> {
+
     private val matcher = AntPathMatcher()
     override fun check(
         authentication: Supplier<Authentication>,
         context: RequestAuthorizationContext
     ): AuthorizationDecision {
-        val authorities = authentication.get().authorities
-        val urlResources = authorities.filterIsInstance<PurviewInfo>()
-            .filter { it.type === PurviewInfo.Type.URL }
-            .toList()
         val uri = context.request.requestURI
         val method = context.request.method
-        urlResources.forEach {
-            if (it.methodEnums === HttpMethodEnums.ALL_METHOD) {
-                matcher.match(it.code, uri)
-                return AuthorizationDecision(true)
-            }
-            if (it.methodEnums === convertMethodEnums(method)) {
-                matcher.match(it.code, uri)
-                return AuthorizationDecision(true)
-            }
-        }
-        return AuthorizationDecision(false)
+        val has = judgeUrlPurview(authentication, uri, method)
+        return AuthorizationDecision(has)
     }
 
-    fun urlPurview(
+    private fun judgeUrlPurview(
         authentication: Supplier<Authentication>,
         url: String,
         method: String,
@@ -48,7 +36,14 @@ class UrlAccessDecisionManager : AuthorizationManager<RequestAuthorizationContex
         val authorities = authentication.get().authorities
         val urlPurviewList = authorities.filterIsInstance<UrlPurviewVo>()
             .toList()
-        return false
-
+        return urlPurviewList.any {
+            if (it.method === HttpMethodEnums.ALL_METHOD) {
+                return matcher.match(it.url, url)
+            }
+            if (it.method === convertMethodEnums(method)) {
+                return matcher.match(it.url, url)
+            }
+            return false
+        }
     }
 }

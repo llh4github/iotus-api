@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority
 data class UrlPurviewVo(
     val url: String,
     val method: HttpMethodEnums,
+    @Deprecated(message = "不用这个字段啦")
     val purviewCode: String? = null,
 ) : GrantedAuthority {
     override fun getAuthority(): String {

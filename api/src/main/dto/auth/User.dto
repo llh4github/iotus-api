@@ -80,6 +80,16 @@ UserAuthView {
     roles{
         title
         code
+        menuResources{
+            purviewCodes{
+                flat(urlResource){
+                    path as urlPath
+                    method as urlMethod
+                }
+            }
+        }
+
+        @kotlin.Deprecated(message="与菜单相关联")
         urlResources{
             method
             path
