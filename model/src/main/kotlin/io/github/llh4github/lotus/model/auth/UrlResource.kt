@@ -21,9 +21,6 @@ interface UrlResource : BaseModel {
     @get:Schema(title = "HTTP方法")
     val method: HttpMethodEnums
 
-    @Deprecated(message = "与菜单相关联")
-    @ManyToMany(mappedBy = "urlResources")
-    val roles: List<Role>
 
     @OneToOne
     @JoinColumn(name = "purview_code_id")
