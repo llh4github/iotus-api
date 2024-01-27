@@ -1,6 +1,7 @@
 package io.github.llh4github.lotus.model.auth
 
 import io.github.llh4github.lotus.model.BaseModel
+import io.swagger.v3.oas.annotations.media.Schema
 import org.babyfish.jimmer.sql.*
 
 /**
@@ -13,9 +14,11 @@ import org.babyfish.jimmer.sql.*
 @Table(name = "auth_role")
 interface Role : BaseModel {
 
+    @get:Schema(title = "角色名")
     val title: String
 
     @Key
+    @get:Schema(title = "角色代号")
     val code: String
 
     @ManyToMany(mappedBy = "roles")
@@ -24,9 +27,9 @@ interface Role : BaseModel {
 
     @ManyToMany
     @JoinTable(
-        name = "auth_role_url_resource_link",
+        name = "auth_role_menu_resource_link",
         joinColumnName = "role_id",
-        inverseJoinColumnName = "url_resource_id"
+        inverseJoinColumnName = "menu_resource_id"
     )
-    val urlResources: List<UrlResource>
+    val menuResources: List<MenuResource>
 }

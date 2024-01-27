@@ -40,6 +40,9 @@ dependencies {
     runtimeOnly(libs.jjwt.impl)
     runtimeOnly(libs.jjwt.jackson)
 
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.reactor)
+
     implementation("com.github.yitter:yitter-idgenerator:1.0.6")
 }
 kotlin {

@@ -18,8 +18,9 @@ input RoleAddInput{
     @Pattern(regexp="^\\w{3,18}$",message="角色代号只能由数字、字母与下划线组成，且长度为3到18个字符")
     code
 
-    @Schema(title = "此角色可访问的URL资源ID列表")
-    id(urlResources) as urlResourcesIds
+
+    @Schema(title = "此角色可访问的菜单资源ID列表")
+    id(menuResources) as menuResourceIds
 }
 
 input RoleUpdateInput{
@@ -35,8 +36,8 @@ input RoleUpdateInput{
     @Pattern(regexp="^\\w{3,18}$",message="角色代号只能由数字、字母与下划线组成，且长度为3到18个字符")
     code
 
-    @Schema(title = "此角色可访问的URL资源ID列表")
-    id(urlResources) as urlResourcesIds
+    @Schema(title = "此角色可访问的菜单资源ID列表")
+    id(menuResources) as menuResourceIds
 }
 
 specification RoleSimpleSpec{
@@ -61,9 +62,10 @@ RoleSimpleView{
 
 RoleWithPermissionView{
     #allScalars(this,BaseModel)
-    urlResources{
+
+    menuResources{
+        #allScalars(this)
         id
-       path
-       method
     }
+
 }
