@@ -11,7 +11,7 @@ import kotlin.reflect.KClass
  * @author llh
  */
 @Component
-class MenuResourceDao: BaseDao<MenuResource>() {
+class MenuResourceDao : BaseDao<MenuResource>() {
     override val entityType: KClass<MenuResource>
         get() = MenuResource::class
 }
