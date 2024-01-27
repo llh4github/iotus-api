@@ -3,7 +3,9 @@ package io.github.llh4github.lotus.api.service.auth
 import io.github.llh4github.lotus.model.BaseService
 import io.github.llh4github.lotus.model.auth.MenuResource
 import io.github.llh4github.lotus.model.auth.dto.MenuResourceAddInput
+import io.github.llh4github.lotus.model.auth.dto.MenuResourceAddWithPurviewInput
 import io.github.llh4github.lotus.model.auth.dto.MenuResourceUpdateInput
+import io.github.llh4github.lotus.model.auth.dto.MenuResourceUpdateWithPurviewInput
 import org.babyfish.jimmer.View
 import kotlin.reflect.KClass
 
@@ -24,4 +26,7 @@ interface MenuResourceService : BaseService<MenuResource> {
      * parent_id 为空的。
      */
     fun <S : View<MenuResource>> topTree(staticType: KClass<S>): List<S>
+    fun addWithPurview(dto: MenuResourceAddWithPurviewInput): MenuResource?
+    suspend fun updateWithPurview(dto: MenuResourceUpdateWithPurviewInput): MenuResource?
+
 }

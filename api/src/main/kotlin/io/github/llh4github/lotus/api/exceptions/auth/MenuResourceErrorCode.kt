@@ -1,6 +1,7 @@
 package io.github.llh4github.lotus.api.exceptions.auth
 
 import org.babyfish.jimmer.error.ErrorFamily
+import org.babyfish.jimmer.error.ErrorField
 
 /**
  *
@@ -12,4 +13,7 @@ import org.babyfish.jimmer.error.ErrorFamily
 enum class MenuResourceErrorCode {
 
     PATH_DUPLICATE,
+
+    @ErrorField(name = "existPurviewCode", type = String::class, list = true)
+    PURVIEW_CODE_DUPLICATE,
 }

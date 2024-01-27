@@ -47,4 +47,7 @@ interface MenuResource : BaseModel {
 
     @OneToMany(mappedBy = "menu")
     val purviewCodes: List<PurviewCode>
+
+    @ManyToMany(mappedBy = "menuResources")
+    val roles: List<Role>
 }
