@@ -1,25 +1,21 @@
-package io.github.llh4github.lotus.api.dao
+package io.github.llh4github.lotus.model.auth
 
-import io.github.llh4github.lotus.model.auth.PurviewCode
-import io.github.llh4github.lotus.model.auth.code
-import io.github.llh4github.lotus.model.auth.id
+
+import io.github.llh4github.lotus.model.BaseDao
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.babyfish.jimmer.sql.kt.ast.expression.ne
 import org.babyfish.jimmer.sql.kt.ast.expression.valueIn
 import org.springframework.stereotype.Component
-import kotlin.reflect.KClass
 
 /**
  *
  *
- * Created At 2024/1/24 11:20
+ * Created At 2024/1/27 19:47
  * @author llh
  */
 @Component
 class PurviewCodeDao : BaseDao<PurviewCode>() {
-    override val entityType: KClass<PurviewCode>
-        get() = PurviewCode::class
-
+    override val entityType = PurviewCode::class
     fun isExistCodeList(codeList: List<String>): Boolean {
         return createQuery {
             where(table.code valueIn codeList)

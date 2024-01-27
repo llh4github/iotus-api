@@ -1,9 +1,6 @@
-package io.github.llh4github.lotus.api.dao
+package io.github.llh4github.lotus.model
 
-import io.github.llh4github.lotus.model.BaseModel
-import io.github.llh4github.lotus.model.PageQueryParam
-import io.github.llh4github.lotus.model.PageResult
-import io.github.oshai.kotlinlogging.KotlinLogging
+import jakarta.annotation.Resource
 import org.babyfish.jimmer.Input
 import org.babyfish.jimmer.View
 import org.babyfish.jimmer.sql.ast.mutation.SaveMode
@@ -19,8 +16,6 @@ import org.babyfish.jimmer.sql.kt.ast.mutation.KSimpleSaveResult
 import org.babyfish.jimmer.sql.kt.ast.query.KConfigurableRootQuery
 import org.babyfish.jimmer.sql.kt.ast.query.KMutableRootQuery
 import org.babyfish.jimmer.sql.kt.ast.query.fetchPage
-import org.babyfish.jimmer.sql.kt.ast.query.specification.KSpecification
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.NoRepositoryBean
 import java.sql.Connection
 import kotlin.reflect.KClass
@@ -28,15 +23,13 @@ import kotlin.reflect.KClass
 /**
  *
  *
- * Created At 2024/1/14 14:36
+ * Created At 2024/1/27 16:37
  * @author llh
  */
 @NoRepositoryBean
 abstract class BaseDao<E : BaseModel> {
-
-    private val logger = KotlinLogging.logger {}
-
-    @Autowired
+    //region
+    @Resource
     protected lateinit var sqlClient: KSqlClient
 
     abstract val entityType: KClass<E>
@@ -56,11 +49,18 @@ abstract class BaseDao<E : BaseModel> {
     ): KExecutable<Int> =
         sqlClient.createDelete(entityType, block)
 
+    //endregion
+
+
+    //region query method
     /**
      * 数据是否存在。true: 存在
      */
     fun exist(id: Long): Boolean {
-        return sqlClient.findById(entityType, id) !== null
+        return createQuery {
+            where(table.getId<Long>() eq id)
+            select(table)
+        }.count() > 0
     }
 
     /**
@@ -85,16 +85,6 @@ abstract class BaseDao<E : BaseModel> {
         }.fetchOneOrNull()
     }
 
-    protected fun <S : View<E>> specQuery(
-        spec: KSpecification<E>,
-        staticType: KClass<S>
-    ): KConfigurableRootQuery<E, S> {
-        return createQuery {
-            where(spec)
-            select(table.fetch(staticType))
-        }
-    }
-
     fun findByIds(ids: List<Long>, fetcher: Fetcher<E>?): List<E> =
         if (fetcher !== null) {
             sqlClient.findByIds(fetcher, ids)
@@ -108,6 +98,11 @@ abstract class BaseDao<E : BaseModel> {
             select(table.fetch(staticType))
         }.execute()
     }
+
+    //endregion query method
+
+
+    //region save or insert method
 
     fun save(entity: E, block: KSaveCommandDsl.() -> Unit): KSimpleSaveResult<E> =
         sqlClient.save(entity, block = block)
@@ -123,7 +118,9 @@ abstract class BaseDao<E : BaseModel> {
     fun save(entity: E, mode: SaveMode): KSimpleSaveResult<E> =
         save(entity) { setMode(mode) }
 
-    fun delete(ids:Collection<Long>): Int {
+    //endregion
+
+    fun delete(ids: Collection<Long>): Int {
         return sqlClient.deleteByIds(entityType, ids).totalAffectedRowCount
     }
 

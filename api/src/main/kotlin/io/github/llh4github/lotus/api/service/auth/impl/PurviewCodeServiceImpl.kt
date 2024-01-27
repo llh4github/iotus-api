@@ -1,10 +1,10 @@
 package io.github.llh4github.lotus.api.service.auth.impl
 
-import io.github.llh4github.lotus.api.dao.PurviewCodeDao
 import io.github.llh4github.lotus.api.exceptions.auth.PurviewCodeException
-import io.github.llh4github.lotus.api.service.BaseServiceImpl
 import io.github.llh4github.lotus.api.service.auth.PurviewCodeService
+import io.github.llh4github.lotus.model.BaseServiceImpl
 import io.github.llh4github.lotus.model.auth.PurviewCode
+import io.github.llh4github.lotus.model.auth.PurviewCodeDao
 import io.github.llh4github.lotus.model.auth.code
 import io.github.llh4github.lotus.model.auth.dto.PurviewCodeAddInput
 import io.github.llh4github.lotus.model.auth.dto.PurviewCodeUpdateInput
@@ -28,20 +28,18 @@ class PurviewCodeServiceImpl(
     }
 
     override fun add(dto: PurviewCodeAddInput): PurviewCode? {
-        if (isExistCode(dto.code)) {
-            throw PurviewCodeException.purviewCodeDuplicate("${dto.code} 已存在")
-        }
-        return transactionTemplate.execute {
-            baseDao.save(dto)
+        return addByInput(dto) {
+            if (isExistCode(dto.code)) {
+                throw PurviewCodeException.purviewCodeDuplicate("${dto.code} 已存在")
+            }
         }
     }
 
     override fun update(dto: PurviewCodeUpdateInput): PurviewCode? {
-        if (isExistCode(dto.code)) {
-            throw PurviewCodeException.purviewCodeDuplicate("${dto.code} 已存在")
-        }
-        return transactionTemplate.execute {
-            baseDao.update(dto)
+        return updateByInput(dto) {
+            if (isExistCode(dto.code)) {
+                throw PurviewCodeException.purviewCodeDuplicate("${dto.code} 已存在")
+            }
         }
     }
 }
