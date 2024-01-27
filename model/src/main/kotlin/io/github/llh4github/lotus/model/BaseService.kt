@@ -7,7 +7,7 @@ import org.babyfish.jimmer.sql.kt.ast.query.specification.KSpecification
 import kotlin.reflect.KClass
 
 /**
- *
+ * 基础服务类
  *
  * Created At 2024/1/27 16:54
  * @author llh
@@ -34,7 +34,7 @@ interface BaseService<E : BaseModel> {
         staticType: KClass<S>,
         queryParam: KSpecification<E>,
         pageIndex: Int, pageSize: Int
-    ): PageResult<S>
+    ): PageResult<S> = pageQueryOutType(staticType, queryParam, PageQueryParam(pageIndex, pageSize))
     //endregion
 
     //region update add delete method
