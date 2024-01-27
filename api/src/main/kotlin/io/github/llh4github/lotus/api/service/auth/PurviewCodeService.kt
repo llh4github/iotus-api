@@ -12,7 +12,7 @@ import io.github.llh4github.lotus.model.auth.dto.PurviewCodeUpdateInput
  * @author llh
  */
 interface PurviewCodeService : BaseService<PurviewCode> {
-    fun isExistCode(code:String,notId:Long?=null):Boolean
+    fun isExistCode(code: String, notId: Long? = null): Boolean
     fun add(dto: PurviewCodeAddInput): PurviewCode?
     fun update(dto: PurviewCodeUpdateInput): PurviewCode?
 }
