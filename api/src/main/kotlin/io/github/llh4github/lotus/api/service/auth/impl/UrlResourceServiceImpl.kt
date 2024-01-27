@@ -23,20 +23,18 @@ class UrlResourceServiceImpl(
     UrlResourceService {
     private val logger = KotlinLogging.logger {}
     override fun add(dto: UrlResourceAddInput): UrlResource? {
-        if (exitPath(dto.path, dto.method, null)) {
-            throw UrlResourceException.pathDuplicate("url路径已存在", path = dto.path, method = dto.method)
-        }
-        return transactionTemplate.execute {
-            baseDao.insert(dto)
+        return addByInput(dto) {
+            if (exitPath(dto.path, dto.method, null)) {
+                throw UrlResourceException.pathDuplicate("url路径已存在", path = dto.path, method = dto.method)
+            }
         }
     }
 
     override fun update(dto: UrlResourceUpdateInput): UrlResource? {
-        if (exitPath(dto.path, dto.method, dto.id)) {
-            throw UrlResourceException.pathDuplicate("url路径已存在", path = dto.path, method = dto.method)
-        }
-        return transactionTemplate.execute {
-            baseDao.update(dto)
+        return updateByInput(dto) {
+            if (exitPath(dto.path, dto.method, dto.id)) {
+                throw UrlResourceException.pathDuplicate("url路径已存在", path = dto.path, method = dto.method)
+            }
         }
     }
 

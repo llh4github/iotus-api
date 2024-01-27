@@ -22,20 +22,18 @@ class MenuResourceServiceImpl(
     menuResourceDao: MenuResourceDao
 ) : BaseServiceImpl<MenuResource, MenuResourceDao>(menuResourceDao), MenuResourceService {
     override fun add(dto: MenuResourceAddInput): MenuResource? {
-        if (isExistPath(dto.path)) {
-            throw MenuResourceException.pathDuplicate("页面路径 ${dto.path} 已存在")
-        }
-        return transactionTemplate.execute {
-            baseDao.save(dto)
+        return addByInput(dto) {
+            if (isExistPath(dto.path)) {
+                throw MenuResourceException.pathDuplicate("页面路径 ${dto.path} 已存在")
+            }
         }
     }
 
     override fun update(dto: MenuResourceUpdateInput): MenuResource? {
-        if (isExistPath(dto.path, dto.id)) {
-            throw MenuResourceException.pathDuplicate("页面路径 ${dto.path} 已存在")
-        }
-        return transactionTemplate.execute {
-            baseDao.update(dto)
+        return updateByInput(dto) {
+            if (isExistPath(dto.path, dto.id)) {
+                throw MenuResourceException.pathDuplicate("页面路径 ${dto.path} 已存在")
+            }
         }
     }
 

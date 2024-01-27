@@ -3,6 +3,7 @@ package io.github.llh4github.lotus.api.service
 import io.github.llh4github.lotus.model.BaseModel
 import io.github.llh4github.lotus.model.PageQueryParam
 import io.github.llh4github.lotus.model.PageResult
+import org.babyfish.jimmer.Input
 import org.babyfish.jimmer.View
 import org.babyfish.jimmer.sql.fetcher.Fetcher
 import org.babyfish.jimmer.sql.kt.ast.query.specification.KSpecification
@@ -21,6 +22,26 @@ interface BaseService<E : BaseModel> {
     fun <S : View<E>> findById(staticType: KClass<S>, id: Long): S?
     fun findByIds(ids: List<Long>, fetcher: Fetcher<E>?): List<E>
     fun <S : View<E>> findByIds(staticType: KClass<S>, ids: List<Long>): List<S>
+
+    /**
+     * 当前表基本更新操作。
+     * 更复杂的业务操作另起方法。
+     *
+     *  默认直接更新数据。
+     * @param checkOrException 对数据进行校验的方法。不符合的情况直接抛出异常。
+     * @return 更新后的单表实体
+     */
+    fun <S : Input<E>> updateByInput(dto: S, checkOrException: (() -> Unit)? = null): E?
+
+    /**
+     * 当前表基本新增操作。
+     * 更复杂的业务操作另起方法。
+     *
+     * 默认直接插入数据。
+     * @param checkOrException 对数据进行校验的方法。不符合的情况直接抛出异常。
+     * @return 新增的单表实体
+     */
+    fun <S : Input<E>> addByInput(dto: S, checkOrException: (() -> Unit)? = null): E?
 
     fun deleteById(ids: Collection<Long>): Int
     fun deleteById(id: Long): Int {

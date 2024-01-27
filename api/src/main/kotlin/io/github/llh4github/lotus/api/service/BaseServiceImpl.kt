@@ -5,6 +5,7 @@ import io.github.llh4github.lotus.api.dao.fetchPage
 import io.github.llh4github.lotus.model.BaseModel
 import io.github.llh4github.lotus.model.PageQueryParam
 import io.github.llh4github.lotus.model.PageResult
+import org.babyfish.jimmer.Input
 import org.babyfish.jimmer.View
 import org.babyfish.jimmer.sql.fetcher.Fetcher
 import org.babyfish.jimmer.sql.kt.ast.query.specification.KSpecification
@@ -44,11 +45,30 @@ abstract class BaseServiceImpl<E : BaseModel, M : BaseDao<E>>(
         return baseDao.findByIds(staticType, ids)
     }
 
-    override fun deleteById(ids:Collection<Long>): Int {
+    override fun deleteById(ids: Collection<Long>): Int {
         return transactionTemplate.execute {
             baseDao.delete(ids)
         } ?: 0
     }
+
+    override fun <S : Input<E>> updateByInput(
+        dto: S, checkOrException: (() -> Unit)?
+    ): E? {
+        checkOrException?.invoke()
+        return transactionTemplate.execute {
+            baseDao.update(dto)
+        }
+    }
+
+    override fun <S : Input<E>> addByInput(
+        dto: S, checkOrException: (() -> Unit)?
+    ): E? {
+        checkOrException?.invoke()
+        return transactionTemplate.execute {
+            baseDao.insert(dto)
+        }
+    }
+
 
     override fun pageQuery(
         param: KSpecification<E>, pageIndex: Int, pageSize: Int, fetcher: Fetcher<E>?

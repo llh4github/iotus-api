@@ -16,21 +16,18 @@ class RoleServiceImplImpl(
 ) : BaseServiceImpl<Role, RoleDao>(roleDao), RoleService {
     private val logger = KotlinLogging.logger {}
     override fun add(dto: RoleAddInput): Role? {
-        if (baseDao.isExistCode(dto.code)) {
-            throw RoleException.roleCodeDuplicate("${dto.code} 己存在")
-        }
-        return transactionTemplate.execute {
-            baseDao.insert(dto)
+        return addByInput(dto) {
+            if (baseDao.isExistCode(dto.code)) {
+                throw RoleException.roleCodeDuplicate("${dto.code} 己存在")
+            }
         }
     }
 
-
     override fun update(dto: RoleUpdateInput): Role? {
-        if (baseDao.isExistCode(dto.code, dto.id)) {
-            throw RoleException.roleCodeDuplicate("${dto.code} 己存在")
-        }
-        return transactionTemplate.execute {
-            baseDao.update(dto)
+        return updateByInput(dto) {
+            if (baseDao.isExistCode(dto.code, dto.id)) {
+                throw RoleException.roleCodeDuplicate("${dto.code} 己存在")
+            }
         }
     }
 }

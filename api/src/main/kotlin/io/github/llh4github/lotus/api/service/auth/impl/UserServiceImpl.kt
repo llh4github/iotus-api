@@ -18,14 +18,14 @@ class UserServiceImpl(
 ) : BaseServiceImpl<User, UserDao>(dao), UserService {
     private val logger = KotlinLogging.logger {}
     override fun add(dto: UserAddInput): User? {
-        if (baseDao.findByUsername(dto.username) != null) {
-            throw UserException.usernameExist("${dto.username} 已存在")
-        }
         val pwd = passwordEncoder.encode(dto.passwordInput)
         val toSave = dto.copy(password = pwd)
-        return transactionTemplate.execute {
-            baseDao.insert(toSave)
+        return addByInput(toSave) {
+            if (baseDao.findByUsername(dto.username) != null) {
+                throw UserException.usernameExist("${dto.username} 已存在")
+            }
         }
+
     }
 
     override fun update(dto: UserUpdateInput): User? {

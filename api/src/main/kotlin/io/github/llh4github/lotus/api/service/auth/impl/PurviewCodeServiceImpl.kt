@@ -28,20 +28,18 @@ class PurviewCodeServiceImpl(
     }
 
     override fun add(dto: PurviewCodeAddInput): PurviewCode? {
-        if (isExistCode(dto.code)) {
-            throw PurviewCodeException.purviewCodeDuplicate("${dto.code} 已存在")
-        }
-        return transactionTemplate.execute {
-            baseDao.save(dto)
+        return addByInput(dto) {
+            if (isExistCode(dto.code)) {
+                throw PurviewCodeException.purviewCodeDuplicate("${dto.code} 已存在")
+            }
         }
     }
 
     override fun update(dto: PurviewCodeUpdateInput): PurviewCode? {
-        if (isExistCode(dto.code)) {
-            throw PurviewCodeException.purviewCodeDuplicate("${dto.code} 已存在")
-        }
-        return transactionTemplate.execute {
-            baseDao.update(dto)
+        return updateByInput(dto) {
+            if (isExistCode(dto.code)) {
+                throw PurviewCodeException.purviewCodeDuplicate("${dto.code} 已存在")
+            }
         }
     }
 }
