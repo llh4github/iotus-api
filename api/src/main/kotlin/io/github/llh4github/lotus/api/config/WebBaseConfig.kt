@@ -1,5 +1,8 @@
 package io.github.llh4github.lotus.api.config
 
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.ObjectMapper
+import jakarta.annotation.PostConstruct
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
@@ -11,7 +14,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
  * @author llh
  */
 @Configuration
-class WebBaseConfig : WebMvcConfigurer {
+class WebBaseConfig(
+    private val objectMapper: ObjectMapper
+) : WebMvcConfigurer {
+
+    @PostConstruct
+    fun objectMapperConfig() {
+        // 枚举字符串不匹配时，则为null
+        objectMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true)
+    }
+
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**")
             .allowedHeaders("*")
