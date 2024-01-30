@@ -31,7 +31,7 @@ class AuthenticateServiceImpl(
     }
 
     override fun logout(param: LogoutParam) {
-        SecurityContextHolder.getContext().authentication = null
+        SecurityContextHolder.clearContext()
         tokenService.banToken(param.accessToken)
         tokenService.banToken(param.refreshToken)
     }

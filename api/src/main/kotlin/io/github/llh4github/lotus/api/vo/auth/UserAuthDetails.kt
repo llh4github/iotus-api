@@ -1,6 +1,6 @@
 package io.github.llh4github.lotus.api.vo.auth
 
-import io.github.llh4github.lotus.api.security.PurviewInfo
+import io.github.llh4github.lotus.api.security.UrlPurviewVo
 import io.github.llh4github.lotus.model.auth.dto.UserAuthView
 import org.springframework.security.core.userdetails.UserDetails
 
@@ -13,14 +13,13 @@ import org.springframework.security.core.userdetails.UserDetails
 data class UserAuthDetails(
     val authInfo: UserAuthView
 ) : UserDetails {
-    override fun getAuthorities(): List<PurviewInfo> {
-        val roles = authInfo.roles.map { it.code }
-            .map { PurviewInfo.role(it) }
+    override fun getAuthorities(): List<UrlPurviewVo> {
+        return authInfo.roles
+            .flatMap { it.menuResources }
+            .flatMap { it.purviewCodes }
+            .filter { it.urlPath != null && it.urlMethod != null }
+            .map { UrlPurviewVo(it.urlPath!!, it.urlMethod!!) }
             .toList()
-        val purview = authInfo.roles.flatMap { it.urlResources }
-            .map { PurviewInfo.url(it.path, it.method) }
-            .toList()
-        return roles + purview
     }
 
     val userId = authInfo.id

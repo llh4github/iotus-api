@@ -33,6 +33,10 @@ class JwtAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
+        if("OPTIONS".equals(request.method,true)){
+            filterChain.doFilter(request, response)
+            return
+        }
         val hasAnno = securityProperties.annoUrl.any { matcher.match(it, request.requestURI) }
         if (hasAnno) {
             filterChain.doFilter(request, response)

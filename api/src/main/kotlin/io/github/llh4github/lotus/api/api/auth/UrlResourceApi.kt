@@ -2,9 +2,8 @@ package io.github.llh4github.lotus.api.api.auth
 
 import io.github.llh4github.lotus.api.api.BaseApi
 import io.github.llh4github.lotus.api.service.auth.UrlResourceService
-import io.github.llh4github.lotus.commons.JsonWrapper
-import io.github.llh4github.lotus.api.vo.IdList
 import io.github.llh4github.lotus.api.vo.IdSet
+import io.github.llh4github.lotus.commons.JsonWrapper
 import io.github.llh4github.lotus.model.PageResult
 import io.github.llh4github.lotus.model.auth.UrlResource
 import io.github.llh4github.lotus.model.auth.dto.UrlReouceSpec
@@ -39,7 +38,7 @@ class UrlResourceApi(
     @PutMapping("")
     @Operation(summary = "更新数据")
     fun update(@RequestBody @Validated dto: UrlResourceUpdateInput): JsonWrapper<UrlResource> {
-        val rs = urlResourceService.update(dto)
+        val rs = urlResourceService.updateByInput(dto)
         return ok(rs)
     }
 

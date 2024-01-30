@@ -18,6 +18,9 @@ data class JsonWrapper<T>(
     @Schema(title = "模块名", description = "在异常的情况下，此值才有意义")
     val module: String = "",
 ) {
+    @Schema(title = "响应是否成功", description = "方便前端使用")
+    val success = code === "OK"
+
     companion object {
         @JvmStatic
         fun <T> ok(msg: String, data: T?): JsonWrapper<T> {
