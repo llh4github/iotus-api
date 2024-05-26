@@ -12,6 +12,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation(libs.knife4j.openapi3)
     implementation(libs.yitter.idgenerator)
+    runtimeOnly("org.postgresql:postgresql")
     implementation(libs.jimmer.starter)
     ksp(libs.jimmer.ksp)
 

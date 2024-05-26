@@ -1,3 +1,13 @@
 spring:
   application:
-    name: mod-web
+    name: lotus-api-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lotus
+    username: root
+    password: root
+
+jimmer:
+  show-sql: true
+  language: kotlin
+  dialect: org.babyfish.jimmer.sql.dialect.PostgresDialect
+
