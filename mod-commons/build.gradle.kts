@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    compileOnly(libs.swagger.annotations)
+    api(libs.swagger.annotations)
     compileOnly(libs.slf4j.api)
     compileOnly(libs.logback.core)
     compileOnly(libs.logback.classic)

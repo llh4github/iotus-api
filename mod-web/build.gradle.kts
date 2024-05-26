@@ -10,9 +10,13 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-
     implementation(libs.knife4j.openapi3)
+    implementation(libs.yitter.idgenerator)
+    implementation(libs.jimmer.starter)
+    ksp(libs.jimmer.ksp)
+
     implementation(project(":mod-commons"))
+    implementation(project(":mod-dal"))
 }
 
 kotlin {

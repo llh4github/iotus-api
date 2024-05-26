@@ -6,3 +6,4 @@ plugins {
 rootProject.name = "lotus-api"
 include("mod-commons")
 include("mod-web")
+include("mod-dal")
