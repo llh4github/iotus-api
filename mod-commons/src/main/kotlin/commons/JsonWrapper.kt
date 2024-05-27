@@ -10,6 +10,8 @@ data class JsonWrapper<T>(
     val msg: String = "OK",
     @Schema(title = "响应数据")
     val data: T? = null,
+    @Schema(title = "模块名称")
+    val module: String = "",
 ) {
     @Schema(title = "是否成功")
     fun getSuccess(): Boolean {
