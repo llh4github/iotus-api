@@ -18,4 +18,12 @@ class IdGenerator(
     override fun generate(entityType: Class<*>?): Long {
         return YitIdHelper.nextId()
     }
+
+    fun nextId(): Long {
+        return YitIdHelper.nextId()
+    }
+
+    fun nextIdStr(): String {
+        return YitIdHelper.nextId().toString()
+    }
 }
