@@ -16,6 +16,7 @@ ksp = "2.0.0-1.0.21"
 kotest = "5.9.0"
 # 目前还没发1.0版本
 jimmer = "+"
+jimmer-gradle = "0.0.12"
 
 [libraries]
 kotlin-allopen = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
@@ -52,3 +53,4 @@ jimmer-core = { module = "org.babyfish.jimmer:jimmer-core", version.ref = "jimme
 jimmer-kotlin = { module = "org.babyfish.jimmer:jimmer-sql-kotlin", version.ref = "jimmer" }
 [plugins]
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+jimmer-gradle = { id = "cn.enaium.jimmer.gradle", version.ref = "jimmer-gradle" }

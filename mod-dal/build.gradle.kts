@@ -2,6 +2,7 @@ plugins {
     id("kotlin-conventions")
     alias(libs.plugins.ksp)
     id("spring-conventions")
+    alias(libs.plugins.jimmer.gradle)
 }
 
 dependencies {

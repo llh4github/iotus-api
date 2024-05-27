@@ -1,0 +1,12 @@
+export io.github.llh4github.iotus.dal.auth.PageMeta
+
+PageRouterMetaView{
+    id
+    path
+    meta
+    children{
+        id
+        path
+        meta
+    }
+}
