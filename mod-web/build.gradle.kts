@@ -15,6 +15,7 @@ dependencies {
 
     runtimeOnly("org.postgresql:postgresql")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation(libs.jimmer.starter)
     ksp(libs.jimmer.ksp)
 
