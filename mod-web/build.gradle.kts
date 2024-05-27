@@ -12,9 +12,17 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation(libs.knife4j.openapi3)
     implementation(libs.yitter.idgenerator)
+
     runtimeOnly("org.postgresql:postgresql")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation(libs.jimmer.starter)
     ksp(libs.jimmer.ksp)
+
+    implementation(libs.jjwt.api)
+    runtimeOnly(libs.jjwt.impl)
+    runtimeOnly(libs.jjwt.jackson)
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    testImplementation("org.springframework.security:spring-security-test")
 
     implementation(project(":mod-commons"))
     implementation(project(":mod-dal"))
