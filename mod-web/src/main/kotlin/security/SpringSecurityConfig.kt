@@ -29,6 +29,7 @@ class SpringSecurityConfig(
                 it.authenticationEntryPoint(AuthenticationFailedHandler())
                 it.accessDeniedHandler(AccessDeniedHandlerImpl())
             }
+            .formLogin { it.loginProcessingUrl("/auth/login").failureHandler(AuthenticationFailureHandlerImpl()) }
             .logout { it.disable() }
             .addFilterAt(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
         return http.build()

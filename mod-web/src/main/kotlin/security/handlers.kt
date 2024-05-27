@@ -9,6 +9,7 @@ import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.access.AccessDeniedHandler
+import org.springframework.security.web.authentication.AuthenticationFailureHandler
 
 
 internal class AuthenticationFailedHandler : AuthenticationEntryPoint {
@@ -49,4 +50,24 @@ internal class AccessDeniedHandlerImpl : AccessDeniedHandler {
         )
         ServletUtil.writeJson(response, json)
     }
+}
+
+internal class AuthenticationFailureHandlerImpl : AuthenticationFailureHandler {
+    private val logger = KotlinLogging.logger {}
+
+    override fun onAuthenticationFailure(
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        exception: AuthenticationException
+    ) {
+        logger.debug(exception) { "登录失败" }
+        val json = JsonWrapper(
+            code = "LOGIN_FAIL",
+            module = "AUTH",
+            data = "请检查用户名或密码是否正确",
+            msg = "登录失败"
+        )
+        ServletUtil.writeJson(response, json)
+    }
+
 }
