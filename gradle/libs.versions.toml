@@ -2,6 +2,7 @@
 oshaiKotlinLogging = "5.1.0"
 jdk = "17"
 kotlin = "2.0.0"
+kotlinx-coroutines = "1.8.1"
 kotlinForDetekt = "1.9.10"
 springBoot = "3.3.0"
 graalvm-plugin = "0.10.0"
@@ -22,6 +23,8 @@ jimmer-gradle = "0.0.12"
 kotlin-allopen = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
 kotlin-noarg = { module = "org.jetbrains.kotlin:kotlin-noarg", version.ref = "kotlin" }
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version.ref = "kotlinx-coroutines" }
 easyexcel = { module = "com.alibaba:easyexcel", version.ref = "easyexcel" }
 apache-compress = { module = "org.apache.commons:commons-compress", version = "1.25.0" }
 apache-pool2 = { module = "org.apache.commons:commons-pool2", version = "2.12.0" }
